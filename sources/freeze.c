@@ -1,30 +1,26 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   freeze.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/20 09:23:06 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/11 09:05:50 by aquissan         ###   ########.fr       */
+/*   Created: 2025/02/11 10:20:22 by aquissan          #+#    #+#             */
+/*   Updated: 2025/02/11 10:25:51 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "../includes/cub3D.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1024
-# endif
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdlib.h>
-# include <stdio.h>
+void	ft_free_stack(t_map *map)
+{
+	t_map *tmp;
 
-char	*get_next_line(int fd);
-void	ft_bzero(void *s, size_t n);
-size_t	ft_strlen(const char *s);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strchr(const char *s, int c);
-
-#endif
+	while (map)
+	{
+		tmp = map;
+		map = map->next;
+		free(tmp->line);
+		free(tmp);
+	}
+}

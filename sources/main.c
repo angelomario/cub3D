@@ -1,12 +1,36 @@
+/******************************************************************************/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/11 08:29:11 by aquissan          #+#    #+#             */
+/*   Updated: 2025/02/11 10:26:18 by aquissan         ###   ########.fr       */
+/*                                                                            */
+/******************************************************************************/
 
-#include "../includes/get_next_line.h"
+#include "../includes/cub3D.h"
 
-int	main(void)
+int	main(int ac, char *av[])
 {
-	int	fd;
+	t_map *map;
+	t_map *tmp;
 
-	fd = open("test.txt", O_RDONLY);
-	printf("%s\n", get_next_line(fd));
-	close(fd);
+	if (ac == 2 && av)
+	{
+		map = ft_read_file(av[1]);
+		tmp = map;
+		while (map)
+		{
+			printf("%s\n", map->line);
+			map = map->next;
+		}
+		ft_free_stack(tmp);
+	}
+	else
+	{
+		printf("%s--------|  Usage: ./<executable> <map_way>  |--------%s\n", RED, RESET);
+	}
 	return (0);
 }

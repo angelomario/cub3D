@@ -6,13 +6,13 @@
 #    By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/16 17:25:17 by aquissan          #+#    #+#              #
-#    Updated: 2025/02/10 16:39:27 by aquissan         ###   ########.fr        #
+#    Updated: 2025/02/11 10:25:25 by aquissan         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME=cub3D
 
-FLAGS=-Wall -Wextra -Werror
+FLAGS=-Wall -Wextra -Werror -g
 COMPILE= cc
 
 # DIRS
@@ -22,7 +22,7 @@ OBJ_D=objects
 RM=rm -rf 
 Mk=mkdir -p 
 
-FILES= main.c get_next_line.c get_next_line_utils.c
+FILES= main.c get_next_line.c get_next_line_utils.c check_map.c freeze.c
 SRC=$(addprefix $(SRC_D)/, $(FILES))
 OBJ=$(addprefix $(OBJ_D)/, $(FILES:.c=.o))
 
@@ -46,7 +46,7 @@ re: fclean all
 
 run: re
 	clear
-	valgrind --leak-check=full -s ./$(NAME)
+	valgrind --leak-check=full -s ./$(NAME) "test.txt"
 
 push: fclean
 	clear
