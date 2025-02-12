@@ -21,6 +21,7 @@
 # define READ O_RDONLY
 # define WRITE O_WRONLY
 # include "get_next_line.h"
+# include "../libft/libft.h"
 
 typedef struct s_map
 {

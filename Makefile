@@ -16,6 +16,8 @@ FLAGS=-Wall -Wextra -Werror -g
 COMPILE= cc
 
 # DIRS
+LIBFTPATH = libft
+MLXPATH = minilibx-linux
 SRC_D=sources
 OBJ_D=objects
 
@@ -26,20 +28,29 @@ FILES= main.c get_next_line.c get_next_line_utils.c check_map.c freeze.c
 SRC=$(addprefix $(SRC_D)/, $(FILES))
 OBJ=$(addprefix $(OBJ_D)/, $(FILES:.c=.o))
 
-all: $(NAME)
+all: MLX LIBFT $(NAME)
+
+MLX:
+	make -C $(MLXPATH)
+LIBFT:
+	make -C $(LIBFTPATH)
 
 $(NAME): $(OBJ)
-	$(COMPILE) $(FLAGS) $(OBJ) -o $(NAME)
+	$(COMPILE) $(FLAGS) $(OBJ) -L./$(LIBFTPATH) -lft -I$(MLXPATH) -lXext -lX11 -lm -lz -o $(NAME)
 
 $(OBJ_D)/%.o:$(SRC_D)/%.c
 	@$(Mk) $(OBJ_D)
 	$(COMPILE) $(FLAGS) -c $< -o $@ 
 
 clean: 
+	make clean -C $(LIBFTPATH)
+	# make clean -C $(MLX)
 	$(RM) $(OBJ)
 	$(RM) $(OBJ_D)
 
 fclean: clean
+	make clean -C $(LIBFTPATH)
+	# make clean -C $(MLX)
 	$(RM) $(NAME)
 
 re: fclean all

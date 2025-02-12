@@ -23,10 +23,11 @@ int	main(int ac, char *av[])
 		tmp = map;
 		while (map)
 		{
-			printf("%s\n", map->line);
+			printf("%s", map->line);
 			map = map->next;
 		}
 		ft_free_stack(tmp);
+		printf("\n");
 	}
 	else
 	{
