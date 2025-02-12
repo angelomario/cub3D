@@ -44,13 +44,13 @@ $(OBJ_D)/%.o:$(SRC_D)/%.c
 
 clean: 
 	make clean -C $(LIBFTPATH)
-	# make clean -C $(MLX)
+	make clean -C $(MLXPATH)
 	$(RM) $(OBJ)
 	$(RM) $(OBJ_D)
 
 fclean: clean
-	make clean -C $(LIBFTPATH)
-	# make clean -C $(MLX)
+	make fclean -C $(LIBFTPATH)
+	# make fclean -C $(MLXPATH)
 	$(RM) $(NAME)
 
 re: fclean all
