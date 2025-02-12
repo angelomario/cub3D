@@ -24,3 +24,32 @@ void	ft_free_stack(t_map *map)
 		free(tmp);
 	}
 }
+
+void	ft_free_master(t_master *master)
+{
+	if (master->SO)
+		free(master->SO);
+	if (master->WE)
+		free(master->WE);
+	if (master->EA)
+		free(master->EA);
+	if (master->NO)
+		free(master->NO);
+	if (master->campus)
+		ft_freematriz(master->campus);
+	free(master);
+}
+
+int ft_freematriz(char **mat)
+{
+    int i;
+
+    i = -1;
+    if (mat || *mat)
+    {
+        while (mat && mat[++i])
+            free(mat[i]);
+        free(mat);
+    }
+    return (i);
+}

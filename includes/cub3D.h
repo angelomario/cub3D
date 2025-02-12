@@ -38,13 +38,16 @@ typedef struct s_master
 	char			*WE;
 	char			*EA;
 
-	char			**map;
+	char			**campus;
 }					t_master;
 
 // FUNCTIONS
 t_map				*ft_read_file(char *filepath);
+t_master			*get_master(t_map *map);
 
 // FREEZE
 void				ft_free_stack(t_map *map);
+void				ft_free_master(t_master *master);
+int					ft_freematriz(char **mat);
 
 #endif

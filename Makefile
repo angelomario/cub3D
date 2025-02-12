@@ -24,7 +24,8 @@ OBJ_D=objects
 RM=rm -rf 
 Mk=mkdir -p 
 
-FILES= main.c get_next_line.c get_next_line_utils.c check_map.c freeze.c
+FILES= main.c get_next_line.c get_next_line_utils.c check_map.c freeze.c\
+		
 SRC=$(addprefix $(SRC_D)/, $(FILES))
 OBJ=$(addprefix $(OBJ_D)/, $(FILES:.c=.o))
 

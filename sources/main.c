@@ -14,24 +14,32 @@
 
 int	main(int ac, char *av[])
 {
-	t_map *map;
-	t_map *tmp;
+	t_master	*master;
+	t_map		*map;
 
 	if (ac == 2 && av)
 	{
 		map = ft_read_file(av[1]);
-		tmp = map;
-		while (map)
+		if (map)
 		{
-			printf("%s", map->line);
-			map = map->next;
+			master = get_master(map);
+			printf("%s\n", master->SO);
+			printf("%s\n", master->WE);
+			printf("%s\n", master->EA);
+			printf("%s\n", master->NO);
+			printf("%i\n", master->C);
+			printf("%i\n", master->F);
+			printf("Campus: %s\n", master->campus[1]);
+			ft_free_stack(map);
+			ft_free_master(master);
 		}
-		ft_free_stack(tmp);
+		(void)master;
 		printf("\n");
 	}
 	else
 	{
-		printf("%s--------|  Usage: ./<executable> <map_way>  |--------%s\n", RED, RESET);
+		printf("%s--------|  Usage: ./<executable> <map_way>  |--------%s\n",
+			RED, RESET);
 	}
 	return (0);
 }
