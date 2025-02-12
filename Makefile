@@ -55,7 +55,11 @@ fclean: clean
 
 re: fclean all
 
-run: re
+run: MLX LIBFT
+	$(RM) $(OBJ)
+	$(RM) $(OBJ_D)
+	$(RM) $(NAME)
+	make
 	clear
 	valgrind --leak-check=full -s ./$(NAME) "test.txt"
 

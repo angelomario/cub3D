@@ -29,6 +29,18 @@ typedef struct s_map
     struct s_map *next;
 }   t_map;
 
+typedef struct s_master
+{
+    int C;
+    int F;
+    char *NO;
+    char *SO;
+    char *WE;
+    char *EA;
+
+    char **map;
+}   t_master;
+
 // FUNCTIONS
 t_map   *ft_read_file(char *filepath);
 
