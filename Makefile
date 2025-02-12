@@ -61,7 +61,7 @@ run: MLX LIBFT
 	$(RM) $(NAME)
 	make
 	clear
-	valgrind --leak-check=full -s ./$(NAME) "test.txt"
+	valgrind --leak-check=full -s ./$(NAME) "test.cub"
 
 push: fclean
 	clear
