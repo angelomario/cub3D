@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:29:11 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/11 10:26:18 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/02/13 15:48:59 by aquissan         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
@@ -33,6 +33,12 @@ int main(int ac, char *av[])
 				printf("%i\n", master->F);
 				printf("Campus: %s\n", master->campus[0]);
 			}
+			else
+			{
+				printf("%s           -------------%s\n", RED, RESET);
+				printf("%s|---------| Invalid map |---------|%s\n", RED, RESET);
+				printf("%s           -------------%s\n", RED, RESET);
+			}
 			ft_free_stack(map);
 			ft_free_master(master);
 		}
@@ -41,8 +47,9 @@ int main(int ac, char *av[])
 	}
 	else
 	{
-		printf("%s--------|  Usage: ./<executable> <map_way>  |--------%s\n",
-			   RED, RESET);
+		printf("%s         ---------------------------------%s\n", RED, RESET);
+		printf("%s|-------| Usage: ./<executable> <map_way> |-------|%s\n", RED, RESET);
+		printf("%s         ---------------------------------%s\n", RED, RESET);
 	}
 	return (0);
 }

@@ -45,7 +45,18 @@ typedef struct s_master
 // FUNCTIONS
 t_map				*ft_read_file(char *filepath);
 t_master			*get_master(t_map *map);
-int is_there_something_wrong(t_master *master, t_map *map);
+int					getcolor(char *str);
+int					check_filename(char *filename);
+int					check_components(char *line, t_master *master);
+
+// UTILS
+int					is_there_something_wrong(t_master *master, t_map *map);
+int					ft_countmatriz(char **mat);
+int					initializedefault(t_master *master);
+int					ft_countlinecampus(t_map *list);
+void				ft_replacechar(char *str, char to_find, char to_replace);
+int					ft_replacestr(char **str, char *to_replace);
+int					is_voidline(char *line);
 
 // FREEZE
 void				ft_free_stack(t_map *map);

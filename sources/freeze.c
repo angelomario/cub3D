@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   freeze.c                                           :+:      :+:    :+:   */
@@ -6,13 +6,13 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 10:20:22 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/11 10:25:51 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/02/13 13:46:28 by aquissan         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-void	ft_free_stack(t_map *map)
+void ft_free_stack(t_map *map)
 {
 	t_map *tmp;
 
@@ -25,7 +25,7 @@ void	ft_free_stack(t_map *map)
 	}
 }
 
-void	ft_free_master(t_master *master)
+void ft_free_master(t_master *master)
 {
 	if (master->SO)
 		free(master->SO);
@@ -42,14 +42,14 @@ void	ft_free_master(t_master *master)
 
 int ft_freematriz(char **mat)
 {
-    int i;
+	int i;
 
-    i = -1;
-    if (mat != NULL)
-    {
-        while (mat && mat[++i])
-            free(mat[i]);
-        free(mat);
-    }
-    return (i);
+	i = -1;
+	if (mat != NULL)
+	{
+		while (mat && mat[++i])
+			free(mat[i]);
+		free(mat);
+	}
+	return (i);
 }

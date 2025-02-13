@@ -25,7 +25,7 @@ RM=rm -rf
 Mk=mkdir -p 
 
 FILES= main.c get_next_line.c get_next_line_utils.c check_map.c freeze.c\
-		
+		utils_check.c utils.c
 SRC=$(addprefix $(SRC_D)/, $(FILES))
 OBJ=$(addprefix $(OBJ_D)/, $(FILES:.c=.o))
 
