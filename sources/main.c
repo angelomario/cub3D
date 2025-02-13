@@ -12,10 +12,10 @@
 
 #include "../includes/cub3D.h"
 
-int	main(int ac, char *av[])
+int main(int ac, char *av[])
 {
-	t_master	*master;
-	t_map		*map;
+	t_master *master;
+	t_map *map;
 
 	if (ac == 2 && av)
 	{
@@ -23,13 +23,16 @@ int	main(int ac, char *av[])
 		if (map)
 		{
 			master = get_master(map);
-			printf("%s\n", master->SO);
-			printf("%s\n", master->WE);
-			printf("%s\n", master->EA);
-			printf("%s\n", master->NO);
-			printf("%i\n", master->C);
-			printf("%i\n", master->F);
-			printf("Campus: %s\n", master->campus[1]);
+			if (master->wrongmap == 0)
+			{
+				printf("%s\n", master->SO);
+				printf("%s\n", master->WE);
+				printf("%s\n", master->EA);
+				printf("%s\n", master->NO);
+				printf("%i\n", master->C);
+				printf("%i\n", master->F);
+				printf("Campus: %s\n", master->campus[0]);
+			}
 			ft_free_stack(map);
 			ft_free_master(master);
 		}
@@ -39,7 +42,7 @@ int	main(int ac, char *av[])
 	else
 	{
 		printf("%s--------|  Usage: ./<executable> <map_way>  |--------%s\n",
-			RED, RESET);
+			   RED, RESET);
 	}
 	return (0);
 }

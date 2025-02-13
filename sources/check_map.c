@@ -12,7 +12,7 @@
 
 #include "../includes/cub3D.h"
 
-int	is_voidline(char *line)
+int is_voidline(char *line)
 {
     int i;
 
@@ -41,18 +41,18 @@ int check_filename(char *filename)
     return (free(substr), 0);
 }
 
-t_map   *ft_read_file(char *filepath)
+t_map *ft_read_file(char *filepath)
 {
-    t_map*  map;
-    t_map*  tmp;
-    char*   str;
-	int fd;
+    t_map *map;
+    t_map *tmp;
+    char *str;
+    int fd;
 
     if (check_filename(filepath) == -1)
         return (printf("%s is not a file with a valid map name\n", filepath), NULL);
     fd = open(filepath, READ);
-	if (fd == -1)
-		return (printf("The map %s cannot be opened or does not exist\n", filepath), NULL);
+    if (fd == -1)
+        return (printf("The map %s cannot be opened or does not exist\n", filepath), NULL);
     map = (t_map *)malloc(sizeof(t_map) * 1);
     map->line = get_next_line(fd);
     map->next = NULL;
@@ -66,11 +66,10 @@ t_map   *ft_read_file(char *filepath)
     }
     free(str);
     close(fd);
-	return (map);
+    return (map);
 }
 
-
-void    ft_replacechar(char *str, char to_find, char to_replace)
+void ft_replacechar(char *str, char to_find, char to_replace)
 {
     int i;
 
@@ -97,7 +96,7 @@ int getcolor(char *str)
     int r;
     int g;
     int b;
-    char    **rgb;
+    char **rgb;
 
     if (str)
     {
@@ -186,29 +185,60 @@ int get_campus(t_map *map, t_master **master)
         (*master)->campus = campus;
         return (0);
     }
-    return (-1);
+    else
+        (*master)->campus = NULL;
+    return (1);
 }
 
-t_master*   get_master(t_map *map)
+int is_there_something_wrong(t_master *master, t_map *map)
+{
+    if (master->C == -1 || master->F == -1)
+        master->wrongmap = 1;
+    if (!master->SO || !master->EA || !master->WE || !master->NO)
+        master->wrongmap = 1;
+    while (map && is_voidline(map->line) == 0)
+        map = map->next;    
+    while (map)
+    {
+        if (is_voidline(map->line) == 0)
+            master->wrongmap = 1;
+        map = map->next;
+    }
+    if (master->campus == NULL)
+        master->wrongmap = 1;
+    return (0);
+}
+
+int initializedefault(t_master *master)
+{
+    master->C = -1;
+    master->F = -1;
+    master->wrongmap = 0;
+    master->SO = NULL;
+    master->WE = NULL;
+    master->EA = NULL;
+    master->NO = NULL;
+    master->campus = NULL;
+    return (0);
+}
+
+t_master *get_master(t_map *map)
 {
     t_master *master;
     t_map *tmp;
 
     tmp = map;
     master = (t_master *)malloc(sizeof(t_master) * 1);
-    master->SO = NULL;
-    master->WE = NULL;
-    master->EA = NULL;
-    master->NO = NULL;
-    master->campus = NULL;
+    initializedefault(master);
     while (tmp)
     {
         if (check_components(tmp->line, master) == -1)
         {
-            get_campus(tmp, &master);
-            break ;
+            master->wrongmap = get_campus(tmp, &master);
+            break;
         }
         tmp = tmp->next;
     }
+    is_there_something_wrong(master, tmp);
     return (master);
 }

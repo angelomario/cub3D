@@ -31,6 +31,7 @@ typedef struct s_map
 
 typedef struct s_master
 {
+	int				wrongmap;
 	int				C;
 	int				F;
 	char			*NO;
@@ -44,6 +45,7 @@ typedef struct s_master
 // FUNCTIONS
 t_map				*ft_read_file(char *filepath);
 t_master			*get_master(t_map *map);
+int is_there_something_wrong(t_master *master, t_map *map);
 
 // FREEZE
 void				ft_free_stack(t_map *map);

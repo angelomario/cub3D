@@ -45,7 +45,7 @@ int ft_freematriz(char **mat)
     int i;
 
     i = -1;
-    if (mat || *mat)
+    if (mat != NULL)
     {
         while (mat && mat[++i])
             free(mat[i]);
