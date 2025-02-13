@@ -6,11 +6,23 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:29:11 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/13 15:48:59 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:36:14 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
+
+void	show_map(char **map)
+{
+	int	i;
+
+	i = 0;
+	while (map && map[i])
+	{
+		printf("%s%s%s\n", GREEN, map[i], RESET);
+		i++;
+	}
+}
 
 int main(int ac, char *av[])
 {
@@ -31,7 +43,7 @@ int main(int ac, char *av[])
 				printf("%s\n", master->NO);
 				printf("%i\n", master->C);
 				printf("%i\n", master->F);
-				printf("Campus: %s\n", master->campus[0]);
+				show_map(master->campus);
 			}
 			else
 			{

@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:42:09 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/13 13:45:09 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/02/13 19:05:49 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,38 @@ int get_campus(t_map *map, t_master **master)
     }
     else
         (*master)->campus = NULL;
+    (*master)->wrongmap = 1;
     return (1);
+}
+
+int check_variables(char *vars, t_master *master)
+{
+    int x;
+    int y;
+
+    x = -1;
+    while (master->campus[++x])
+    {
+        y = 0;
+        while (master->campus[x][y])
+        {
+           if (ft_strchr(vars, master->campus[x][y]) == NULL)
+           {
+                master->wrongmap = 1;
+                return (-1);
+           }
+           y++;
+        }
+    }
+    return (0);
+}
+
+int check_campus(t_master *master)
+{
+    // if (!have_valid_wall(master->campus))
+    //     master->wrongmap = 1;
+    check_variables(" 10WENS", master);
+    return (0);
 }
 
 t_master *get_master(t_map *map)
@@ -79,11 +110,71 @@ t_master *get_master(t_map *map)
     {
         if (check_components(tmp->line, master) == -1)
         {
-            master->wrongmap = get_campus(tmp, &master);
+            get_campus(tmp, &master);
             break;
         }
         tmp = tmp->next;
     }
     is_there_something_wrong(master, tmp);
+    if (master->campus)
+        check_campus(master);
     return (master);
+}
+
+// ACC
+
+int	count_var(char **map, char var)
+{
+	int	x;
+	int	y;
+	int	qtd_var;
+
+	qtd_var = 0;
+	y = 0;
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			if (map[y][x] == var)
+				qtd_var++;
+			x++;
+		}
+		y++;
+	}
+	return (qtd_var);
+}
+
+int	ft_countline(char **map)
+{
+	int	i;
+
+	i = 0;
+	if (map == NULL || *map == NULL)
+		return (0);
+	while (map[i] != NULL)
+		i++;
+	return (i);
+}
+
+int	have_valid_wall(char **map)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (map[x] != NULL)
+	{
+		if ((map[x][0] != '1') || (map[x][ft_strlen(map[0]) - 1] != '1'))
+			return (0);
+		x++;
+	}
+	while (map[0][y] && map[ft_countline(map) - 1][y])
+	{
+		if (map[0][y] != '1' || map[ft_countline(map) - 1][y] != '1')
+			return (0);
+		y++;
+	}
+	return (1);
 }
