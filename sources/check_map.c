@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:42:09 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/13 19:05:49 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/02/13 19:23:54 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ int check_variables(char *vars, t_master *master)
 
 int check_campus(t_master *master)
 {
-    // if (!have_valid_wall(master->campus))
-    //     master->wrongmap = 1;
+    if (!have_valid_wall(master->campus))
+        master->wrongmap = 1;
     check_variables(" 10WENS", master);
     return (0);
 }
@@ -157,24 +157,33 @@ int	ft_countline(char **map)
 	return (i);
 }
 
+int ft_orizontalwall(char **line)
+{
+    int	i;
+
+	i = 0;
+    while (line[i] != NULL)
+	{
+		if ((line[i][0] != '1') || (line[i][ft_strlen(line[i]) - 1] != '1'))
+			return (0);
+		i++;
+	}
+    return (1);
+}
+
 int	have_valid_wall(char **map)
 {
+    char    **line;
 	int	x;
-	int	y;
 
 	x = 0;
-	y = 0;
 	while (map[x] != NULL)
 	{
-		if ((map[x][0] != '1') || (map[x][ft_strlen(map[0]) - 1] != '1'))
-			return (0);
+        line = ft_split(map[x], ' ');
+		if (ft_orizontalwall(line) == 0)
+            return (ft_freematriz(line), 0);
+        ft_freematriz(line);
 		x++;
-	}
-	while (map[0][y] && map[ft_countline(map) - 1][y])
-	{
-		if (map[0][y] != '1' || map[ft_countline(map) - 1][y] != '1')
-			return (0);
-		y++;
 	}
 	return (1);
 }
