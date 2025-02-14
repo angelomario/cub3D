@@ -1,4 +1,4 @@
-#******************************************************************************#
+# **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
@@ -6,9 +6,9 @@
 #    By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/16 17:25:17 by aquissan          #+#    #+#              #
-#    Updated: 2025/02/11 10:25:25 by aquissan         ###   ########.fr        #
+#    Updated: 2025/02/14 17:33:06 by aquissan         ###   ########.fr        #
 #                                                                              #
-#******************************************************************************#
+# **************************************************************************** #
 
 NAME=cub3D
 
@@ -25,7 +25,7 @@ RM=rm -rf
 Mk=mkdir -p 
 
 FILES= main.c get_next_line.c get_next_line_utils.c check_map.c freeze.c\
-		utils_check.c utils.c
+		utils_check.c utils.c check_walls.c utils2.c
 SRC=$(addprefix $(SRC_D)/, $(FILES))
 OBJ=$(addprefix $(OBJ_D)/, $(FILES:.c=.o))
 

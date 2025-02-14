@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:31:28 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/13 18:50:26 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/02/14 17:24:00 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,16 @@ typedef struct s_master
 // FUNCTIONS
 t_map				*ft_read_file(char *filepath);
 t_master			*get_master(t_map *map);
-int getcolor(char *str, t_master *mastr);
+int 				getcolor(char *str, t_master *mastr);
+
+// CHECK MAP
 int					check_filename(char *filename);
 int					check_components(char *line, t_master *master);
+int					have_valid_wall(char **map);
+int					ft_find_leak(char **tab);
+int 				ft_orizontalwall(char **line);
+int					check_around(char **map, int x, int y);
+int 				around_character(char **tab, t_master *master);
 
 // UTILS
 int					is_there_something_wrong(t_master *master, t_map *map);
@@ -57,8 +64,8 @@ int					ft_countlinecampus(t_map *list);
 void				ft_replacechar(char *str, char to_find, char to_replace);
 int					ft_replacestr(char **str, char *to_replace);
 int					is_voidline(char *line);
-int	ft_countline(char **map);
-int	have_valid_wall(char **map);
+int					ft_countline(char **map);
+int 				count_var(char **map, char var);
 
 // FREEZE
 void				ft_free_stack(t_map *map);
