@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:42:09 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/13 19:23:54 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/02/14 13:18:01 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,12 @@ int check_variables(char *vars, t_master *master)
         y = 0;
         while (master->campus[x][y])
         {
-           if (ft_strchr(vars, master->campus[x][y]) == NULL)
-           {
+            if (ft_strchr(vars, master->campus[x][y]) == NULL)
+            {
                 master->wrongmap = 1;
                 return (-1);
-           }
-           y++;
+            }
+            y++;
         }
     }
     return (0);
@@ -92,9 +92,11 @@ int check_variables(char *vars, t_master *master)
 
 int check_campus(t_master *master)
 {
+    check_variables(" 10WENS", master);
+    if (master->wrongmap == 1)
+        return (0);
     if (!have_valid_wall(master->campus))
         master->wrongmap = 1;
-    check_variables(" 10WENS", master);
     return (0);
 }
 
@@ -123,67 +125,125 @@ t_master *get_master(t_map *map)
 
 // ACC
 
-int	count_var(char **map, char var)
+int count_var(char **map, char var)
 {
-	int	x;
-	int	y;
-	int	qtd_var;
+    int x;
+    int y;
+    int qtd_var;
 
-	qtd_var = 0;
-	y = 0;
-	while (map[y])
-	{
-		x = 0;
-		while (map[y][x])
-		{
-			if (map[y][x] == var)
-				qtd_var++;
-			x++;
-		}
-		y++;
-	}
-	return (qtd_var);
+    qtd_var = 0;
+    y = 0;
+    while (map[y])
+    {
+        x = 0;
+        while (map[y][x])
+        {
+            if (map[y][x] == var)
+                qtd_var++;
+            x++;
+        }
+        y++;
+    }
+    return (qtd_var);
 }
 
-int	ft_countline(char **map)
+int ft_countline(char **map)
 {
-	int	i;
+    int i;
 
-	i = 0;
-	if (map == NULL || *map == NULL)
-		return (0);
-	while (map[i] != NULL)
-		i++;
-	return (i);
+    i = 0;
+    if (map == NULL || *map == NULL)
+        return (0);
+    while (map[i] != NULL)
+        i++;
+    return (i);
 }
 
 int ft_orizontalwall(char **line)
 {
-    int	i;
+    int i;
 
-	i = 0;
+    i = 0;
     while (line[i] != NULL)
-	{
-		if ((line[i][0] != '1') || (line[i][ft_strlen(line[i]) - 1] != '1'))
-			return (0);
-		i++;
-	}
+    {
+        if ((line[i][0] != '1') || (line[i][ft_strlen(line[i]) - 1] != '1'))
+            return (0);
+        i++;
+    }
     return (1);
 }
 
-int	have_valid_wall(char **map)
+int deeper(char **mat, int y, int *stop)
 {
-    char    **line;
-	int	x;
+    int top;
+    int down;
 
-	x = 0;
-	while (map[x] != NULL)
-	{
+    down = *stop;
+    top = *stop;
+    if (top-- > 0)
+    {
+        while (top > 0 && ((int)ft_strlen(mat[top]) > y) && mat[top][y] != ' ')
+            --top;
+        if ((top + 1) < *stop)
+            return (*stop = top, 1);
+    }
+    if (mat[*stop][y] != '\0' && mat[*stop][y] == ' ')
+    {
+        down++;
+        while (ft_countline(mat) > down)
+        {
+            if (((int)ft_strlen(mat[down]) > y) && mat[down][y] != ' ')
+                return (*stop = down, 1);
+            down++;
+        }
+    }
+    return (1);
+}
+
+int ft_vertical(char **mat)
+{
+    int y;
+    int stop;
+    int sbottom;
+
+    sbottom = ft_countline(mat);
+    stop = 0;
+    y = -1;
+    while (mat[stop][++y] != '\0')
+    {
+        if (deeper(mat, y, &stop) == 0)
+            return (0);
+        if (mat[stop][y] == '0')
+            return (0);
+    }
+    y = -1;
+    --sbottom;
+    if (mat[sbottom])
+    {
+        while (mat[sbottom][++y] != '\0')
+        {
+            if (mat[sbottom][y] == '0')
+                return (0);
+        }
+    }
+    return (1);
+}
+
+int have_valid_wall(char **map)
+{
+    char **line;
+    int x;
+
+    x = 0;
+    while (map[x] != NULL)
+    {
         line = ft_split(map[x], ' ');
-		if (ft_orizontalwall(line) == 0)
+        if (ft_orizontalwall(line) == 0)
             return (ft_freematriz(line), 0);
         ft_freematriz(line);
-		x++;
-	}
-	return (1);
+        x++;
+    }
+    if (ft_vertical(map) == 0)
+        return (0);
+    return (1);
 }
