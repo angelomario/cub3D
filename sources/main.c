@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:29:11 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/13 17:36:14 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/02/14 22:26:30 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ int main(int ac, char *av[])
 			master = get_master(map);
 			if (master->wrongmap == 0)
 			{
-				printf("%s\n", master->SO);
-				printf("%s\n", master->WE);
-				printf("%s\n", master->EA);
-				printf("%s\n", master->NO);
+				printf("%s%s%s\n",YELLOW, master->SO, RESET);
+				printf("%s%s%s\n",CYAN, master->WE, RESET);
+				printf("%s%s%s\n",YELLOW, master->EA, RESET);
+				printf("%s%s%s\n", CYAN, master->NO, RESET);
 				printf("%i\n", master->C);
 				printf("%i\n", master->F);
 				show_map(master->campus);
