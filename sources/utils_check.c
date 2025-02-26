@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:42:09 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/13 18:57:19 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:04:11 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int is_there_something_wrong(t_master *master, t_map *map)
     if (!master->SO || !master->EA || !master->WE || !master->NO)
         master->wrongmap = 1;
     while (map && is_voidline(map->line) == 0)
-        map = map->next;    
+        map = map->next;
     while (map)
     {
         if (is_voidline(map->line) == 0)

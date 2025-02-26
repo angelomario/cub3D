@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
@@ -6,42 +6,42 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:27:28 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/11 10:16:38 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:03:59 by aquissan         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/get_next_line.h"
 
-static void	pre_line(char **str, char **line)
+static void pre_line(char **str, char **line)
 {
-	char	*nl;
-	size_t	len;
-	size_t	i;
+	char *nl;
+	size_t len;
+	size_t i;
 
 	nl = ft_strchr(*str, '\n');
 	len = ft_strlen(*str) - ft_strlen(nl) + 2;
 	*line = (char *)malloc(len * sizeof(char));
 	if (!line)
-		return ;
+		return;
 	i = -1;
 	while (++i < (len - 1))
 		(*line)[i] = (*str)[i];
 	(*line)[i] = '\0';
 }
 
-static void	pos_line(char **str)
+static void pos_line(char **str)
 {
-	char	*nl;
-	char	*tmp;
-	size_t	i;
-	size_t	j;
+	char *nl;
+	char *tmp;
+	size_t i;
+	size_t j;
 
 	nl = ft_strchr(*str, '\n');
 	if (!nl)
 	{
 		free(*str);
 		*str = NULL;
-		return ;
+		return;
 	}
 	tmp = malloc((ft_strlen(nl)) * sizeof(char));
 	i = 0;
@@ -58,10 +58,10 @@ static void	pos_line(char **str)
 	}
 }
 
-static int	getstrbuff(int fd, char **str, char *buffer)
+static int getstrbuff(int fd, char **str, char *buffer)
 {
-	char	*tmp;
-	int		bytes;
+	char *tmp;
+	int bytes;
 
 	ft_bzero(buffer, BUFFER_SIZE + 1);
 	bytes = read(fd, buffer, BUFFER_SIZE);
@@ -79,12 +79,12 @@ static int	getstrbuff(int fd, char **str, char *buffer)
 	return (bytes);
 }
 
-char	*get_next_line(int fd)
+char *get_next_line(int fd)
 {
-	static char	*nxtline;
-	char		*line;
-	char		*buffer;
-	int			bytes;
+	static char *nxtline;
+	char *line;
+	char *buffer;
+	int bytes;
 
 	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);

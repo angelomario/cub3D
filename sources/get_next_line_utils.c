@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aquissan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:27:42 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/11 08:27:44 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:03:40 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../includes/get_next_line.h"
 
-void	ft_bzero(void *s, size_t n)
+void ft_bzero(void *s, size_t n)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
 	while (i < n)
@@ -25,9 +24,9 @@ void	ft_bzero(void *s, size_t n)
 	}
 }
 
-size_t	ft_strlen(const char *str)
+size_t ft_strlen(const char *str)
 {
-	size_t	i;
+	size_t i;
 
 	if (str == NULL)
 		return (0);
@@ -37,7 +36,7 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_strchr(const char *s, int c)
+char *ft_strchr(const char *s, int c)
 {
 	if (s == NULL)
 		return (NULL);
@@ -52,11 +51,11 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char *ft_strjoin(char const *s1, char const *s2)
 {
-	char	*str;
-	size_t	len;
-	size_t	i;
+	char *str;
+	size_t len;
+	size_t i;
 
 	len = ft_strlen(s1) + ft_strlen(s2) + 1;
 	str = (char *)malloc(len * sizeof(char));
