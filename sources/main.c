@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:29:11 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/26 17:57:20 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:59:37 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,12 @@ void draw(int lineHeight, int hitSide, int x, t_data *img)
   y = (SCREEN_HEIGHT / 2) - (lineHeight / 2);
   if (y < 0)
     y = 0;
-  while (y < SCREEN_HEIGHT && lineHeight)
+  while (y <= SCREEN_HEIGHT && lineHeight)
   {
-    my_mlx_pixel_put(img, x, y, 0x00ff0000);
+    if (hitSide)
+      my_mlx_pixel_put(img, x, y, 0xa60000);
+    else
+      my_mlx_pixel_put(img, x, y, 0x7b0000);
     lineHeight--;
     y++;
   }
