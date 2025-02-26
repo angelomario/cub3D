@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:29:11 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/26 17:59:37 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:01:04 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ t_vector setDeltaDist(t_vector rayDir)
 
 void draw(int lineHeight, int hitSide, int x, t_data *img)
 {
-  (void)hitSide;
   int y;
 
   y = (SCREEN_HEIGHT / 2) - (lineHeight / 2);
