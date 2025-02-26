@@ -6,13 +6,13 @@
 #    By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/16 17:25:17 by aquissan          #+#    #+#              #
-#    Updated: 2025/02/14 17:33:06 by aquissan         ###   ########.fr        #
+#    Updated: 2025/02/25 19:55:53 by aquissan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=cub3D
 
-FLAGS=-Wall -Wextra -Werror -g
+FLAGS= -Wall -Wextra -Werror -g
 COMPILE= cc
 
 # DIRS
@@ -37,12 +37,11 @@ LIBFT:
 	make -C $(LIBFTPATH)
 
 $(NAME): $(OBJ)
-	$(COMPILE) $(FLAGS) $(OBJ) -L./$(LIBFTPATH) -lft -I$(MLXPATH) -lXext -lX11 -lm -lz -o $(NAME)
+	$(COMPILE) $(FLAGS)  -Iincludes -Imimilibx-linux $(OBJ) -L./$(MLXPATH) -lmlx -L./$(LIBFTPATH) -lft -I$(MLXPATH) -lXext -lX11 -lm -lz -o $(NAME)
 
 $(OBJ_D)/%.o:$(SRC_D)/%.c
 	@$(Mk) $(OBJ_D)
 	$(COMPILE) $(FLAGS) -c $< -o $@ 
-
 clean: 
 	make clean -C $(LIBFTPATH)
 	make clean -C $(MLXPATH)
@@ -62,7 +61,7 @@ run: MLX LIBFT
 	$(RM) $(NAME)
 	make
 	clear
-	valgrind --leak-check=full -s ./$(NAME) "test.cub"
+	valgrind --leak-check=full --show-leak-kinds=all -s ./$(NAME) "test.cub"
 
 push: fclean
 	clear

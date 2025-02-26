@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:42:09 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/13 13:45:21 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/02/25 11:30:09 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ int initializedefault(t_master *master)
     master->EA = NULL;
     master->NO = NULL;
     master->campus = NULL;
+    master->keyboard = (t_keyboard){false, false, false, false, false, false, false, false};
     return (0);
 }

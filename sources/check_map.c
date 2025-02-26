@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:42:09 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/14 17:41:12 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/02/26 11:51:48 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int check_variables(char *vars, t_master *master)
             y++;
         }
     }
-    if ((count_var(master->campus, 'W') + count_var(master->campus, 'N') + count_var(master->campus, 'O') + count_var(master->campus, 'E')) != 1)
+    if ((count_var(master->campus, 'W') + count_var(master->campus, 'N') + count_var(master->campus, 'S') + count_var(master->campus, 'E')) != 1)
         return (master->wrongmap = 1, 1);
     return (0);
 }
@@ -125,66 +125,3 @@ t_master *get_master(t_map *map)
         check_campus(master);
     return (master);
 }
-
-// int deeper(char **mat, int y, int *stop)
-// {
-//     int top;
-//     int down;
-
-//     down = *stop;
-//     top = *stop;
-//     if (top-- > 0)
-//     {
-//         while (top > 0 && ((int)ft_strlen(mat[top]) > y) && mat[top][y] != ' ')
-//             --top;
-//         if ((top + 1) < *stop)
-//             return (*stop = top, 1);
-//     }
-//     if (mat[*stop][y] != '\0' && mat[*stop][y] == ' ')
-//     {
-//         down++;
-//         while (ft_countline(mat) > down)
-//         {
-//             if (((int)ft_strlen(mat[down]) > y) && mat[down][y] != ' ')
-//                 return (*stop = down, 1);
-//             down++;
-//         }
-//     }
-//     return (1);
-// }
-
-// int ft_vertical(char **mat)
-// {
-//     int y;
-//     int stop;
-//     int sbottom;
-
-//     sbottom = ft_countline(mat);
-//     stop = 0;
-//     y = -1;
-//     while (mat[stop] && mat[stop][++y] != '\0')
-//     {
-//         printf("\n%i - %c - %i\n", stop, mat[stop][y], y);
-//         if (deeper(mat, y, &stop) == 0)
-//             return (0);
-//         if (mat[stop][y] != '1')
-//             return (0);
-//         if (mat[stop][y + 1] == '\0')
-//         {
-//             stop++;
-//             while (ft_countline(mat) > stop && ((int)ft_strlen(mat[stop]) < y))
-//                 stop++;
-//         }
-//     }
-//     y = -1;
-//     --sbottom;
-//     if (mat[sbottom])
-//     {
-//         while (mat[sbottom][++y] != '\0')
-//         {
-//             if (mat[sbottom][y] == '0')
-//                 return (0);
-//         }
-//     }
-//     return (1);
-// }
