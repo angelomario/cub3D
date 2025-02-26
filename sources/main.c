@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:29:11 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/26 17:52:21 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:57:20 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,43 +51,45 @@ t_vector setDeltaDist(t_vector rayDir)
   return (deltaDist);
 }
 
-// void draw(int lineHeight, int hitSide, int x, t_data *img)
-// {
-//   (void)hitSide;
-//   int y;
-
-//   y = (SCREEN_HEIGHT / 2) - (lineHeight / 2);
-//   while (y < SCREEN_HEIGHT && lineHeight)
-//   {
-//     my_mlx_pixel_put(img, x, y, 0x00ff0000);
-//     lineHeight--;
-//     y++;
-//   }
-// }
-
 void draw(int lineHeight, int hitSide, int x, t_data *img)
 {
+  (void)hitSide;
   int y;
-  int drawStart;
-  int drawEnd;
 
-  drawStart = (SCREEN_HEIGHT / 2) - (lineHeight / 2);
-  drawEnd = (SCREEN_HEIGHT / 2) + (lineHeight / 2);
-  if (drawStart < 0)
-    drawStart = 0;
-  if (drawEnd > SCREEN_HEIGHT)
-    drawEnd = SCREEN_HEIGHT;
-
-  y = drawStart;
-  while (y < drawEnd)
+  y = (SCREEN_HEIGHT / 2) - (lineHeight / 2);
+  if (y < 0)
+    y = 0;
+  while (y < SCREEN_HEIGHT && lineHeight)
   {
-    if (hitSide)
-      my_mlx_pixel_put(img, x, y, 0xa60000);
-    else
-      my_mlx_pixel_put(img, x, y, 0x7b0000);
+    my_mlx_pixel_put(img, x, y, 0x00ff0000);
+    lineHeight--;
     y++;
   }
 }
+
+// void draw(int lineHeight, int hitSide, int x, t_data *img)
+// {
+//   int y;
+//   int drawStart;
+//   int drawEnd;
+
+//   drawStart = (SCREEN_HEIGHT / 2) - (lineHeight / 2);
+//   drawEnd = (SCREEN_HEIGHT / 2) + (lineHeight / 2);
+//   if (drawStart < 0)
+//     drawStart = 0;
+//   if (drawEnd > SCREEN_HEIGHT)
+//     drawEnd = SCREEN_HEIGHT;
+
+//   y = drawStart;
+//   while (y < drawEnd)
+//   {
+//     if (hitSide)
+//       my_mlx_pixel_put(img, x, y, 0xa60000);
+//     else
+//       my_mlx_pixel_put(img, x, y, 0x7b0000);
+//     y++;
+//   }
+// }
 
 t_vector set_distToSide(t_intvector *step, t_vector rayDir, t_minilib *render, t_intvector mapPos)
 {
