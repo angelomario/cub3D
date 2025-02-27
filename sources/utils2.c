@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:04:41 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/27 11:56:06 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/02/27 18:04:54 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ t_vector setDeltaDist(t_vector rayDir)
 	}
 	return (deltaDist);
 }
+
 
 t_vector set_distToSide(t_intvector *step, t_vector rayDir, t_minilib *render, t_intvector mapPos)
 {
