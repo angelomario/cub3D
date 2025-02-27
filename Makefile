@@ -6,7 +6,7 @@
 #    By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/16 17:25:17 by aquissan          #+#    #+#              #
-#    Updated: 2025/02/25 19:55:53 by aquissan         ###   ########.fr        #
+#    Updated: 2025/02/27 12:01:07 by aquissan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ RM=rm -rf
 Mk=mkdir -p 
 
 FILES= main.c get_next_line.c get_next_line_utils.c check_map.c freeze.c\
-		utils_check.c utils.c check_walls.c utils2.c
+		utils_check.c utils.c check_walls.c utils2.c render.c controls.c dda.c\
+		extra.c
 SRC=$(addprefix $(SRC_D)/, $(FILES))
 OBJ=$(addprefix $(OBJ_D)/, $(FILES:.c=.o))
 

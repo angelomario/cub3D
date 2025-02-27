@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:31:28 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/26 17:52:49 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/02/27 11:54:45 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,21 @@ typedef struct s_master
 t_map				*ft_read_file(char *filepath);
 t_master			*get_master(t_map *map);
 int					getcolor(char *str, t_master *mastr);
+void 				renderization(t_minilib *render, t_master *master, t_data *img);
+void 				draw(int lineHeight, int hitSide, int x, t_data *img);
+void 				clear(t_data *data);
+t_minilib 			set_cardial(t_master *master);
+void				dda(t_master *master, t_minilib *render, int *hitSide, t_intvector *step, t_intvector *wallMapPos);
+t_vector 			set_distToSide(t_intvector *step, t_vector rayDir, t_minilib *render, t_intvector mapPos);
+t_vector 			setDeltaDist(t_vector rayDir);
+void 				setWallHeight(t_minilib *render, int hitSide, t_intvector wallMapPos, t_intvector step);
+void rotate(t_master *master);
+void move_x(t_master *master);
+void move_y(t_master *master);
+void move(t_master *master);
+int controls(void *vars);
+t_vector rotate_vector(t_vector v, double angle);
+t_vector get_player_pos(char **campus);
 
 // CHECK MAP
 int					check_filename(char *filename);
@@ -148,6 +163,7 @@ int					ft_replacestr(char **str, char *to_replace);
 int					is_voidline(char *line);
 int					ft_countline(char **map);
 int					count_var(char **map, char var);
+void 				show_map(char **map);
 void				 my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 // FREEZE
