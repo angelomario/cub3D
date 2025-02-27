@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:29:11 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/26 18:01:04 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:28:35 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void draw(int lineHeight, int hitSide, int x, t_data *img)
   y = (SCREEN_HEIGHT / 2) - (lineHeight / 2);
   if (y < 0)
     y = 0;
-  while (y <= SCREEN_HEIGHT && lineHeight)
+  while (y < SCREEN_HEIGHT && lineHeight)
   {
     if (hitSide)
       my_mlx_pixel_put(img, x, y, 0xa60000);
@@ -303,27 +303,30 @@ void rotate(t_master *master)
 
 void move_x(t_master *master)
 {
+  t_vector dir;
+
   if (master->keyboard.right)
   {
-    double perpX = master->render.dir.y;
-    double perpY = -master->render.dir.x;
-    if (master->campus[(int)(master->render.pos.x + perpX * MOVE_SPEED)]
+  
+    dir.y = master->render.dir.y;
+    dir.x = -master->render.dir.x;
+    if (master->campus[(int)(master->render.pos.x + dir.y * MOVE_SPEED)]
                       [(int)(master->render.pos.y)] != '1')
-      master->render.pos.x += perpX * MOVE_SPEED;
+      master->render.pos.x += dir.y * MOVE_SPEED;
     if (master->campus[(int)(master->render.pos.x)]
-                      [(int)(master->render.pos.y + perpY * MOVE_SPEED)] != '1')
-      master->render.pos.y += perpY * MOVE_SPEED;
+                      [(int)(master->render.pos.y + dir.x * MOVE_SPEED)] != '1')
+      master->render.pos.y += dir.x * MOVE_SPEED;
   }
   if (master->keyboard.left)
   {
-    double perpX = master->render.dir.y;
-    double perpY = -master->render.dir.x;
-    if (master->campus[(int)(master->render.pos.x - perpX * MOVE_SPEED)]
+    dir.y = master->render.dir.y;
+    dir.x = -master->render.dir.x;
+    if (master->campus[(int)(master->render.pos.x - dir.y * MOVE_SPEED)]
                       [(int)(master->render.pos.y)] != '1')
-      master->render.pos.x -= perpX * MOVE_SPEED;
+      master->render.pos.x -= dir.y * MOVE_SPEED;
     if (master->campus[(int)(master->render.pos.x)]
-                      [(int)(master->render.pos.y - perpY * MOVE_SPEED)] != '1')
-      master->render.pos.y -= perpY * MOVE_SPEED;
+                      [(int)(master->render.pos.y - dir.x * MOVE_SPEED)] != '1')
+      master->render.pos.y -= dir.x * MOVE_SPEED;
   }
 }
 
