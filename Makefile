@@ -6,7 +6,7 @@
 #    By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/16 17:25:17 by aquissan          #+#    #+#              #
-#    Updated: 2025/02/27 12:01:07 by aquissan         ###   ########.fr        #
+#    Updated: 2025/02/27 14:58:13 by aquissan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,14 @@ fclean: clean
 re: fclean all
 
 run: MLX LIBFT
+	$(RM) $(OBJ)
+	$(RM) $(OBJ_D)
+	$(RM) $(NAME)
+	make
+	clear
+	./$(NAME) "test.cub"
+
+leak: MLX LIBFT
 	$(RM) $(OBJ)
 	$(RM) $(OBJ_D)
 	$(RM) $(NAME)

@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:29:11 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/27 12:00:50 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/02/27 18:07:12 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,28 +67,28 @@ t_minilib set_cardial(t_master *master)
 	t_minilib	render;
 	t_vector	pos;
 
-	pos = get_player_pos(master->campus);
-	if (master->campus[(int)floor(pos.x)][(int)floor(pos.y)] == 'N')
-	{
-		render.dir = (t_vector){-1, 0};
-		render.plane = (t_vector){0, 0.66};
-	}
-	if (master->campus[(int)floor(pos.x)][(int)floor(pos.y)] == 'S')
-	{
-		render.dir = (t_vector){1, 0};
-		render.plane = (t_vector){0, -0.66};
-	}
-	if (master->campus[(int)floor(pos.x)][(int)floor(pos.y)] == 'E')
-	{
-		render.dir = (t_vector){0, 1};
-		render.plane = (t_vector){0.66, 0};
-	}
-	if (master->campus[(int)floor(pos.x)][(int)floor(pos.y)] == 'W')
-	{
-		render.dir = (t_vector){0, -1};
-		render.plane = (t_vector){-0.66, 0};
-	}
-	return (render);
+  pos = get_player_pos(master->campus);
+  if (master->campus[(int)pos.x][(int)pos.y] == 'N')
+  {
+    render.dir = (t_vector){-1, 0};
+    render.plane = (t_vector){0, 0.66};
+  }
+  if (master->campus[(int)pos.x][(int)pos.y] == 'S')
+  {
+    render.dir = (t_vector){1, 0};
+    render.plane = (t_vector){0, -0.66};
+  }
+  if (master->campus[(int)pos.x][(int)pos.y] == 'E')
+  {
+    render.dir = (t_vector){0, 1};
+    render.plane = (t_vector){0.66, 0};
+  }
+  if (master->campus[(int)pos.x][(int)pos.y] == 'W')
+  {
+    render.dir = (t_vector){0, -1};
+    render.plane = (t_vector){-0.66, 0};
+  }
+  return (render);
 }
 
 void ft_game(t_master *master)

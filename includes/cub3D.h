@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:31:28 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/27 11:54:45 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/02/27 17:51:00 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 # define PI 3.14
-# define ROTATE_SPEED 0.09
-# define MOVE_SPEED 0.09
+// # define ROTATE_SPEED 0.008
+# define SPEED 0.008
 # define ESC 65307
 # define RRIGHT 65363
 # define RUP 65362
