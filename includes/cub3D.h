@@ -30,7 +30,7 @@
 #define SCREEN_HEIGHT 600
 # define PI 3.14
 // # define ROTATE_SPEED 0.008
-# define SPEED 0.008
+# define SPEED 0.010
 # define ESC 65307
 # define RRIGHT 65363
 # define RUP 65362
@@ -89,6 +89,17 @@ typedef struct	s_data {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+
+
+	void    *textures[4];
+    char    *tex_addr[4];
+	char	*tex_paths[4];
+    int     tex_width[4];
+    int     tex_height[4];
+
+	int		tex_endian[4];
+	int		tex_line_length[4];
+	int		tex_bits_per_pixel[4];
 }				t_data;
 
 typedef struct s_minilib
@@ -123,13 +134,23 @@ typedef struct s_master
 	t_keyboard		keyboard;
 }					t_master;
 
+typedef struct s_texture
+{
+	int				index;
+	int				x;
+	int				y;
+	double			step;
+	double			pos;
+	unsigned int	color;
+}           		t_texture;
+
 
 // FUNCTIONS
 t_map				*ft_read_file(char *filepath);
 t_master			*get_master(t_map *map);
 int					getcolor(char *str, t_master *mastr);
 void 				renderization(t_minilib *render, t_master *master, t_data *img);
-void 				draw(int lineHeight, int hitSide, int x, t_data *img);
+void				draw_texture(int lineHeight, int hitSide, t_intvector *pos, t_data *img, t_master *master);
 void 				clear(t_data *data);
 t_minilib 			set_cardial(t_master *master);
 void				dda(t_master *master, t_minilib *render, int *hitSide, t_intvector *step, t_intvector *wallMapPos);

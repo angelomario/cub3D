@@ -12,10 +12,23 @@
 
 #include "../includes/cub3D.h"
 
+void	free_textures(t_master *master)
+{
+	int i;
+
+	i = 0;
+	while (i < 4)
+	{
+		mlx_destroy_image(master->render.mlx, master->img.textures[i]);
+		i++;
+	}
+}
+
 int key_hook(int keycode, t_master *master)
 {
 	if (keycode == ESC)
 	{
+		free_textures(master);
 		mlx_destroy_image(master->render.mlx, master->img.img);
 		mlx_destroy_window(master->render.mlx, master->render.win);
 		mlx_destroy_display(master->render.mlx);
@@ -91,7 +104,40 @@ t_minilib set_cardial(t_master *master)
   return (render);
 }
 
-void ft_game(t_master *master)
+void	msg_error_image_not_found(int i, void *mlx, t_data *img)
+{
+	printf("Error\nImage not found\n");
+	while ((i - 1 >= 0) && img->textures[i - 1])
+	{
+		mlx_destroy_image(mlx, img->textures[i - 1]);
+		i--;
+	}
+}
+
+int	load_textures(void *mlx, t_data *img, t_master *master)
+{
+	int i;
+
+    i = 0;
+    img->tex_paths[0] = master->NO;
+    img->tex_paths[1] = master->SO;
+    img->tex_paths[2] = master->WE;
+    img->tex_paths[3] = master->EA;
+    while (i < 4)
+    {
+        img->textures[i] = mlx_xpm_file_to_image(mlx, img->tex_paths[i],
+			&img->tex_width[i], &img->tex_height[i]);
+		if (!img->textures[i])
+			return (msg_error_image_not_found(i, mlx, img), 1);
+        img->tex_addr[i] = mlx_get_data_addr(
+            img->textures[i], &img->tex_bits_per_pixel[i],
+            &img->tex_line_length[i], &img->tex_endian[i]);
+        i++;
+    }
+	return (0);
+}
+
+int ft_game(t_master *master)
 {
 	t_minilib	render;
 	t_data		img;
@@ -101,9 +147,15 @@ void ft_game(t_master *master)
 	render.pos = get_player_pos(master->campus);
 	render.pos = (t_vector){render.pos.x + 0.5, render.pos.y + 0.5};
 	render.mlx = mlx_init();
+	if (load_textures(render.mlx, &img, master))
+	{
+		mlx_destroy_display(render.mlx);
+		return (free(render.mlx), ft_free_master(master), exit(1), 1);
+	}
 	render.win = mlx_new_window(render.mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Odyssey");
 	img.img = mlx_new_image(render.mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
+		&img.line_length, &img.endian);
 	master->render = render;
 	master->img = img;
 	mlx_hook(master->render.win, 2, 1L << 0, key_hook, master);
@@ -111,7 +163,7 @@ void ft_game(t_master *master)
 	mlx_loop_hook(master->render.mlx, controls, master);
 	renderization(&master->render, master, &img);
 	mlx_put_image_to_window(master->render.mlx, render.win, img.img, 0, 0);
-	mlx_loop(render.mlx);
+	return (mlx_loop(render.mlx), 0);
 }
 
 int main(int ac, char *av[])
