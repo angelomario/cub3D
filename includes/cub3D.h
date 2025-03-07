@@ -150,7 +150,7 @@ t_map				*ft_read_file(char *filepath);
 t_master			*get_master(t_map *map);
 int					getcolor(char *str, t_master *mastr);
 void 				renderization(t_minilib *render, t_master *master, t_data *img);
-void				draw_texture(int lineHeight, int hitSide, t_intvector *pos, t_data *img, t_master *master);
+void				draw_texture(int hitSide, t_intvector *pos, t_data *img, t_master *master);
 void 				clear(t_data *data);
 t_minilib 			set_cardial(t_master *master);
 void				dda(t_master *master, t_minilib *render, int *hitSide, t_intvector *step, t_intvector *wallMapPos);

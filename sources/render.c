@@ -71,7 +71,7 @@ void renderization(t_minilib *render, t_master *master, t_data *img)
 		render->distToSide = set_distToSide(&step, render->rayDir, render, render->mapPos);
 		dda(master, render, &hitSide, &step, &wallMapPos);
 		setWallHeight(render, hitSide, wallMapPos, step);
-		draw_texture(render->wallHeight, hitSide, &pos, img, master);
+		draw_texture(hitSide, &pos, img, master);
 		pos.x++;
 	}
 }
@@ -186,42 +186,31 @@ unsigned int darken_color(unsigned int color, int percentage)
 	return ((r << 16) | (g << 8) | b);
 }
 
-void	draw_texture(int lineHeight, int hitSide, t_intvector *pos, t_data *img, t_master *master)
+void	draw_texture(int hitSide, t_intvector *pos, t_data *img, t_master *master)
 {
-	int				drawStart;
-	int				drawEnd;
-	t_texture		texture;
+	int			drawStart;
+	int			drawEnd;
+	t_texture	texture;
 
-	drawStart = get_draw_start_position(lineHeight);
-	drawEnd = get_draw_end_position(lineHeight);
-
-	// Desenhar o teto
+	drawStart = get_draw_start_position(master->render.wallHeight);
+	drawEnd = get_draw_end_position(master->render.wallHeight);
 	draw_ceiling(drawStart, pos, img, master);
-
 	texture.index = get_texture_index(hitSide, master->render.rayDir);
-
-	// Calcular a posição exata onde o raio atingiu a parede
 	texture.x = get_x_coordinate_texture(texture.index, hitSide, master, img);
-
-	// Calcular o passo e a posição inicial da textura
-	texture.step = 1.0 * img->tex_height[texture.index] / lineHeight;
-	texture.pos = (drawStart - SCREEN_HEIGHT / 2 + lineHeight / 2) * texture.step;
-
-	// Desenhar a textura
+	texture.step = 1.0 * img->tex_height[texture.index] / master->render.wallHeight;
+	texture.pos = (drawStart - SCREEN_HEIGHT / 2 + master->render.wallHeight / 2) * texture.step;
 	pos->y = drawStart;
 	while (pos->y < drawEnd)
 	{
 		texture.y = (int)texture.pos % (img->tex_height[texture.index] - 1);
 		texture.pos += texture.step;
-		texture.color = *(unsigned int *)(img->tex_addr[texture.index] + (texture.y
-			* img->tex_line_length[texture.index] + texture.x
+		texture.color = *(unsigned int *)(img->tex_addr[texture.index]
+			+ (texture.y * img->tex_line_length[texture.index] + texture.x
 			* (img->tex_bits_per_pixel[3] / 8)));
 		if (hitSide == 1)
 			texture.color = darken_color(texture.color, 30);
 		my_mlx_pixel_put(img, pos->x, pos->y, texture.color);
 		pos->y++;
 	}
-
-	// Desenhar o chão draw_earth
 	draw_earth(pos, img, master);
 }
