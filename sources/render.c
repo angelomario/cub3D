@@ -90,7 +90,7 @@ void	draw_ceiling(int drawStart, t_intvector *pos, t_data *img, t_master *master
 	}
 }
 
-void	draw_earth(t_intvector *pos, t_data *img, t_master *master)
+void	draw_floor(t_intvector *pos, t_data *img, t_master *master)
 {
 	while (pos->y < SCREEN_HEIGHT)
 		my_mlx_pixel_put(img, pos->x, pos->y++, master->F);
@@ -215,5 +215,5 @@ void	draw_texture(int hitSide, t_intvector *pos, t_data *img, t_master *master)
 		texture.color = get_color(hitSide, &texture, img);
 		my_mlx_pixel_put(img, pos->x, pos->y++, texture.color);
 	}
-	draw_earth(pos, img, master);
+	draw_floor(pos, img, master);
 }
