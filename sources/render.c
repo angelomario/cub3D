@@ -76,8 +76,6 @@ void renderization(t_minilib *render, t_master *master, t_data *img)
 	}
 }
 
-
-
 void	draw_ceiling(int drawStart, t_intvector *pos, t_data *img, t_master *master)
 {
 	int i;

@@ -157,13 +157,13 @@ void				dda(t_master *master, t_minilib *render, int *hitSide, t_intvector *step
 t_vector 			set_distToSide(t_intvector *step, t_vector rayDir, t_minilib *render, t_intvector mapPos);
 t_vector 			setDeltaDist(t_vector rayDir);
 void 				setWallHeight(t_minilib *render, int hitSide, t_intvector wallMapPos, t_intvector step);
-void rotate(t_master *master);
-void move_x(t_master *master);
-void move_y(t_master *master);
-void move(t_master *master);
-int controls(void *vars);
-t_vector rotate_vector(t_vector v, double angle);
-t_vector get_player_pos(char **campus);
+void				rotate(t_master *master);
+void				move_x(t_master *master);
+void				move_y(t_master *master);
+void				move(t_master *master);
+int					controls(void *vars);
+t_vector 			rotate_vector(t_vector v, double angle);
+t_vector 			get_player_pos(char **campus);
 
 // CHECK MAP
 int					check_filename(char *filename);
