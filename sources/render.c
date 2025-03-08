@@ -78,6 +78,7 @@ void renderization(t_minilib *render, t_master *master, t_data *img)
 
 
 
+
 void	draw_ceiling(int drawStart, t_intvector *pos, t_data *img, t_master *master)
 {
 	int i;
@@ -101,7 +102,7 @@ int	get_x_coordinate_texture(int index_img, int hitSide, t_master *master, t_dat
 	double wallX;
 
 	if (hitSide == 0)
-	wallX = master->render.pos.y + master->render.perpendicularDist * master->render.rayDir.y;
+		wallX = master->render.pos.y + master->render.perpendicularDist * master->render.rayDir.y;
 	else
 		wallX = master->render.pos.x + master->render.perpendicularDist * master->render.rayDir.x;
 	wallX -= floor(wallX);
@@ -152,23 +153,20 @@ int get_texture_index(int hitSide, t_vector rayDir)
 	}
 }
 
-unsigned int darken_color(unsigned int color, int percentage)
+static unsigned int darken_color(unsigned int color, int percentage)
 {
 	int r;
 	int g;
 	int b;
 
-	// Extrair os componentes RGB da cor
-	r = (color >> 16) & 0xFF; // Componente Vermelho
-	g = (color >> 8) & 0xFF;  // Componente Verde
-	b = color & 0xFF;         // Componente Azul
+	r = (color >> 16) & 0xFF;
+	g = (color >> 8) & 0xFF;
+	b = color & 0xFF;
 
-	// Escurecer cada componente pela porcentagem especificada
 	r = (int)(r * (100 - percentage) / 100);
 	g = (int)(g * (100 - percentage) / 100);
 	b = (int)(b * (100 - percentage) / 100);
 
-	// Garantir que os valores estejam no intervalo [0, 255]
 	if (r < 0)
 		r = 0;
 	if (r > 255)
@@ -181,9 +179,19 @@ unsigned int darken_color(unsigned int color, int percentage)
 		b = 0;
 	if (b > 255)
 		b = 255;
-
-	// Reconstruir a cor escurecida
 	return ((r << 16) | (g << 8) | b);
+}
+
+unsigned int get_color(int hitSide, t_texture *texture, t_data *img)
+{
+	unsigned int	color;
+
+	color = *(unsigned int *)(img->tex_addr[texture->index] + (texture->y
+		* img->tex_line_length[texture->index] + texture->x
+		* (img->tex_bits_per_pixel[texture->index] / 8)));
+	if (hitSide == 1)
+		color = darken_color(color, 30);
+	return (color);
 }
 
 void	draw_texture(int hitSide, t_intvector *pos, t_data *img, t_master *master)
@@ -204,11 +212,7 @@ void	draw_texture(int hitSide, t_intvector *pos, t_data *img, t_master *master)
 	{
 		texture.y = (int)texture.pos % (img->tex_height[texture.index] - 1);
 		texture.pos += texture.step;
-		texture.color = *(unsigned int *)(img->tex_addr[texture.index]
-			+ (texture.y * img->tex_line_length[texture.index]
-			+ texture.x * (img->tex_bits_per_pixel[3] / 8)));
-		if (hitSide == 1)
-			texture.color = darken_color(texture.color, 30);
+		texture.color = get_color(hitSide, &texture, img);
 		my_mlx_pixel_put(img, pos->x, pos->y++, texture.color);
 	}
 	draw_earth(pos, img, master);
