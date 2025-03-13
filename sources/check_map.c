@@ -6,24 +6,24 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:42:09 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/26 11:51:48 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:42:05 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-t_map *ft_read_file(char *filepath)
+t_map	*ft_read_file(char *filepath)
 {
-	t_map *map;
-	t_map *tmp;
-	char *str;
-	int fd;
+	t_map	*map;
+	t_map	*tmp;
+	char	*str;
+	int		fd;
 
 	if (check_filename(filepath) == -1)
-		return (printf("%s is not a file with a valid map name\n", filepath), NULL);
+		return (NULL);
 	fd = open(filepath, READ);
 	if (fd == -1)
-		return (printf("The map %s cannot be opened or does not exist\n", filepath), NULL);
+		return (printerror("The map cannot be opened or does not exist"), NULL);
 	map = (t_map *)malloc(sizeof(t_map) * 1);
 	map->line = get_next_line(fd);
 	map->next = NULL;
@@ -35,16 +35,14 @@ t_map *ft_read_file(char *filepath)
 		tmp->line = str;
 		tmp->next = NULL;
 	}
-	free(str);
-	close(fd);
-	return (map);
+	return (free(str), close(fd), map);
 }
 
-int get_campus(t_map *map, t_master **master)
+int	get_campus(t_map *map, t_master **master)
 {
-	int i;
-	int length;
-	char **campus;
+	int		i;
+	int		length;
+	char	**campus;
 
 	i = 0;
 	length = ft_countlinecampus(map);
@@ -68,10 +66,11 @@ int get_campus(t_map *map, t_master **master)
 	return (1);
 }
 
-int check_variables(char *vars, t_master *master)
+int	check_variables(char *vars, t_master *master)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
+	int	qtd;
 
 	x = -1;
 	while (master->campus[++x])
@@ -87,26 +86,45 @@ int check_variables(char *vars, t_master *master)
 			y++;
 		}
 	}
-	if ((count_var(master->campus, 'W') + count_var(master->campus, 'N') + count_var(master->campus, 'S') + count_var(master->campus, 'E')) != 1)
+	qtd = count_var(master->campus, 'W') + count_var(master->campus, 'N')
+		+ count_var(master->campus, 'S') + count_var(master->campus, 'E');
+	if (qtd == 0)
 		return (master->wrongmap = 1, 1);
+	else if (qtd > 1)
+		return (master->wrongmap = 1, 2);
 	return (0);
 }
 
-int check_campus(t_master *master)
+int	check_campus(t_master *master)
 {
-	check_variables(" 10WENS", master);
+	int	indent;
+
+	indent = check_variables(" 10WENS", master);
+	if (indent == -1)
+		return (printerror("A different character on the map"));
+	else if (indent == 1)
+		return (printerror("Missing player"));
+	else if (indent == 2)
+		return (printerror("The game must have only one player"));
 	if (master->wrongmap == 1)
 		return (0);
 	if (!have_valid_wall(master->campus))
+	{
 		master->wrongmap = 1;
-	around_character(master->campus, master);
+		return (printerror("The map must be surrounded by walls"));
+	}
+	if (around_character(master->campus, master) != 0)
+	{
+		master->wrongmap = 1;
+		printerror("The player must be inside de map");
+	}
 	return (0);
 }
 
-t_master *get_master(t_map *map)
+t_master	*get_master(t_map *map)
 {
-	t_master *master;
-	t_map *tmp;
+	t_master	*master;
+	t_map		*tmp;
 
 	tmp = map;
 	master = (t_master *)malloc(sizeof(t_master) * 1);
@@ -116,7 +134,7 @@ t_master *get_master(t_map *map)
 		if (check_components(tmp->line, master) == -1)
 		{
 			get_campus(tmp, &master);
-			break;
+			break ;
 		}
 		tmp = tmp->next;
 	}

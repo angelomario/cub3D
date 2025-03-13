@@ -6,32 +6,38 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:42:09 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/26 18:04:11 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/03/13 17:58:16 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-int check_filename(char *filename)
+int	check_filename(char *filename)
 {
-	int i;
-	char *substr;
+	int		i;
+	char	*substr;
+	char	*tmp;
 
 	i = ft_strlen(filename);
 	if (i <= 4)
 		return (-1);
 	substr = ft_substr(filename, (i - 4), i);
 	if (ft_strcmp(substr, ".cub") != 0)
+	{
+		tmp = ft_strjoin(filename, " is not a file with a valid map name");
+		printerror(tmp);
+		free(tmp);
 		return (free(substr), -1);
+	}
 	return (free(substr), 0);
 }
 
-int getcolor(char *str, t_master *master)
+int	getcolor(char *str, t_master *master)
 {
-	int r;
-	int g;
-	int b;
-	char **rgb;
+	int		r;
+	int		g;
+	int		b;
+	char	**rgb;
 
 	if (str)
 	{
@@ -51,10 +57,19 @@ int getcolor(char *str, t_master *master)
 	return (-1);
 }
 
-int check_components(char *line, t_master *master)
+int	check_elements(t_master *master)
 {
-	int flag;
-	char **sep;
+	if (!master->SO || !master->NO || !master->WE || !master->EA)
+		printerror("Expected correct values ​​for SO, NO, WE and EA fields");
+	else if (master->C == -1 || master->F == -1)
+		printerror("A valid color was expected for ceil and floor");
+	return (0);
+}
+
+int	check_components(char *line, t_master *master)
+{
+	int		flag;
+	char	**sep;
 
 	ft_replacechar(line, '\t', ' ');
 	ft_replacechar(line, '\n', ' ');
@@ -73,11 +88,14 @@ int check_components(char *line, t_master *master)
 	else if ((ft_countmatriz(sep) == 2) && ft_strcmp(sep[0], "F") == 0)
 		master->F = getcolor(sep[1], master);
 	else if (ft_countmatriz(sep) > 0)
+	{
+		check_elements(master);
 		flag = -1;
+	}
 	return (ft_freematriz(sep), flag);
 }
 
-int is_there_something_wrong(t_master *master, t_map *map)
+int	is_there_something_wrong(t_master *master, t_map *map)
 {
 	if (master->C == -1 || master->F == -1)
 		master->wrongmap = 1;
@@ -85,20 +103,19 @@ int is_there_something_wrong(t_master *master, t_map *map)
 		master->wrongmap = 1;
 	while (map && is_voidline(map->line) == 0)
 		map = map->next;
-	while (map)
-	{
-		if (is_voidline(map->line) == 0)
-			master->wrongmap = 1;
-		map = map->next;
-	}
+	if (!map)
+		return (master->wrongmap = 1, printerror("Expected map"), 0);
 	if (master->campus == NULL)
+	{
 		master->wrongmap = 1;
+		printerror("Invalid map");
+	}
 	return (0);
 }
 
-int ft_countmatriz(char **mat)
+int	ft_countmatriz(char **mat)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (mat && mat[i])

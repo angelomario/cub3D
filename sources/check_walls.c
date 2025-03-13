@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:00:18 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/14 17:40:31 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:43:07 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ int around_character(char **tab, t_master *master)
 		y = 0;
 		while (tab[x][y] != '\0')
 		{
-			if (tab[x][y] == 'W' || tab[x][y] == 'N' || tab[x][y] == 'E' || tab[x][y] == 'O')
+			if (tab[x][y] == 'W' || tab[x][y] == 'N' || tab[x][y] == 'E' || tab[x][y] == 'S')
 			{
+				if ((y - 1) < 0 || (y + 1) >= ft_countmatriz(tab))
+					return (master->wrongmap = 1, 1);
 				if (check_around(tab, x, y) == 0)
 					return (master->wrongmap = 1, 1);
 			}
