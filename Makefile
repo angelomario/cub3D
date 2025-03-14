@@ -6,7 +6,7 @@
 #    By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/16 17:25:17 by aquissan          #+#    #+#              #
-#    Updated: 2025/03/13 17:43:07 by aquissan         ###   ########.fr        #
+#    Updated: 2025/03/14 11:53:02 by aquissan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,9 +24,9 @@ OBJ_D=objects
 RM=rm -rf 
 Mk=mkdir -p 
 
-FILES= main.c get_next_line.c get_next_line_utils.c check_map.c freeze.c\
+FILES= main.c get_next_line.c get_next_line_utils.c check_map.c freeze.c gets.c\
 		utils_check.c utils.c check_walls.c utils2.c render.c controls.c dda.c\
-		extra.c
+		extra.c draw.c
 SRC=$(addprefix $(SRC_D)/, $(FILES))
 OBJ=$(addprefix $(OBJ_D)/, $(FILES:.c=.o))
 

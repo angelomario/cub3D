@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/11 08:31:28 by aquissan          #+#    #+#             */
-/*   Updated: 2025/03/13 15:09:31 by aquissan         ###   ########.fr       */
+/*   Created: 2025/03/14 11:55:53 by aquissan          #+#    #+#             */
+/*   Updated: 2025/03/14 12:01:30 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,6 @@ typedef struct s_intvector
 	int				y;
 }					t_intvector;
 
-typedef struct s_graph
-{
-	double			posX;
-	double			posY;
-	double			dirX;
-	double			dirY;
-	double			planeX;
-	double			planeY;
-}					t_graph;
-
 typedef struct s_keyboard
 {
 	bool			right;
@@ -108,27 +98,28 @@ typedef struct s_minilib
 	t_vector		pos;
 	t_vector		dir;
 	t_vector		plane;
-	t_vector		deltaDist;
-	t_vector		distToSide;
-	t_intvector		mapPos;
-	int				wallHeight;
-	double			perpendicularDist;
-	t_vector		rayDir;
+	t_vector		deltadist;
+	t_vector		disttoside;
+	t_intvector		mappos;
+	int				wallheight;
+	double			perpendiculardist;
+	t_vector		raydir;
 }					t_minilib;
 
 typedef struct s_master
 {
 	int				wrongmap;
-	int				C;
-	int				F;
-	char			*NO;
-	char			*SO;
-	char			*WE;
-	char			*EA;
+	int				c;
+	int				f;
+	char			*no;
+	char			*so;
+	char			*we;
+	char			*ea;
 	char			**campus;
 	t_minilib		render;
 	t_data			img;
 	t_keyboard		keyboard;
+	t_intvector		wallmappos;
 }					t_master;
 
 typedef struct s_texture
@@ -151,13 +142,13 @@ void				draw_texture(int hitSide, t_intvector *pos, t_data *img,
 						t_master *master);
 void				clear(t_data *data);
 t_minilib			set_cardial(t_master *master);
-void				dda(t_master *master, t_minilib *render, int *hitSide,
-						t_intvector *step, t_intvector *wallMapPos);
-t_vector			set_distToSide(t_intvector *step, t_vector rayDir,
+void				dda(t_master *master, int *hitSide, t_intvector *step,
+						t_intvector *wallMapPos);
+t_vector			set_disttoside(t_intvector *step, t_vector raydir,
 						t_minilib *render, t_intvector mapPos);
-t_vector			setDeltaDist(t_vector rayDir);
-void				setWallHeight(t_minilib *render, int hitSide,
-						t_intvector wallMapPos, t_intvector step);
+t_vector			setdeltadist(t_vector raydir);
+void				setwallheight(t_minilib *render, int hitside,
+						t_intvector wallmappos, t_intvector step);
 void				rotate(t_master *master);
 void				move_x(t_master *master);
 void				move_y(t_master *master);
@@ -188,11 +179,23 @@ int					count_var(char **map, char var);
 void				show_map(char **map);
 void				my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int					printerror(char *str);
+void				msg_error_image_not_found(int i, void *mlx, t_data *img);
+int					load_textures(void *mlx, t_data *img, t_master *master);
+unsigned int		get_color(int hitSide, t_texture *texture, t_data *img);
+int					get_texture_index(int hitSide, t_vector rayDir);
+int					get_draw_start_position(int lineHeight);
+int					get_draw_end_position(int lineHeight);
+void				draw_floor(t_intvector *pos, t_data *img, t_master *master);
+void				draw_ceiling(int drawStart, t_intvector *pos, t_data *img,
+						t_master *master);
+int					get_x_coordinate_texture(int index_img, int hitSide,
+						t_master *master, t_data *img);
 
 // FREEZE
 void				ft_free_stack(t_map *map);
 void				ft_free_master(t_master *master);
 int					ft_freematriz(char **mat);
 void				clear(t_data *data);
+void				free_textures(t_master *master);
 
 #endif

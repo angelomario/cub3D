@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:42:09 by aquissan          #+#    #+#             */
-/*   Updated: 2025/03/13 17:58:16 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/03/14 12:03:53 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,36 +32,11 @@ int	check_filename(char *filename)
 	return (free(substr), 0);
 }
 
-int	getcolor(char *str, t_master *master)
-{
-	int		r;
-	int		g;
-	int		b;
-	char	**rgb;
-
-	if (str)
-	{
-		rgb = ft_split(str, ',');
-		if (ft_countmatriz(rgb) != 3)
-		{
-			master->wrongmap = 1;
-			return (ft_freematriz(rgb), -1);
-		}
-		r = ft_atoi(rgb[0]);
-		g = ft_atoi(rgb[1]);
-		b = ft_atoi(rgb[2]);
-		if (r < 0 || g < 0 || b < 0)
-			master->wrongmap = 1;
-		return (ft_freematriz(rgb), (r << 16 | g << 8 | b));
-	}
-	return (-1);
-}
-
 int	check_elements(t_master *master)
 {
-	if (!master->SO || !master->NO || !master->WE || !master->EA)
+	if (!master->so || !master->no || !master->we || !master->ea)
 		printerror("Expected correct values ​​for SO, NO, WE and EA fields");
-	else if (master->C == -1 || master->F == -1)
+	else if (master->c == -1 || master->f == -1)
 		printerror("A valid color was expected for ceil and floor");
 	return (0);
 }
@@ -76,17 +51,17 @@ int	check_components(char *line, t_master *master)
 	sep = ft_split(line, ' ');
 	flag = 0;
 	if (ft_countmatriz(sep) == 2 && ft_strcmp(sep[0], "SO") == 0)
-		ft_replacestr(&master->SO, ft_strdup(sep[1]));
+		ft_replacestr(&master->so, ft_strdup(sep[1]));
 	else if ((ft_countmatriz(sep) == 2) && ft_strcmp(sep[0], "NO") == 0)
-		ft_replacestr(&master->NO, ft_strdup(sep[1]));
+		ft_replacestr(&master->no, ft_strdup(sep[1]));
 	else if ((ft_countmatriz(sep) == 2) && ft_strcmp(sep[0], "WE") == 0)
-		ft_replacestr(&master->WE, ft_strdup(sep[1]));
+		ft_replacestr(&master->we, ft_strdup(sep[1]));
 	else if ((ft_countmatriz(sep) == 2) && ft_strcmp(sep[0], "EA") == 0)
-		ft_replacestr(&master->EA, ft_strdup(sep[1]));
+		ft_replacestr(&master->ea, ft_strdup(sep[1]));
 	else if ((ft_countmatriz(sep) == 2) && ft_strcmp(sep[0], "C") == 0)
-		master->C = getcolor(sep[1], master);
+		master->c = getcolor(sep[1], master);
 	else if ((ft_countmatriz(sep) == 2) && ft_strcmp(sep[0], "F") == 0)
-		master->F = getcolor(sep[1], master);
+		master->f = getcolor(sep[1], master);
 	else if (ft_countmatriz(sep) > 0)
 	{
 		check_elements(master);
@@ -97,9 +72,9 @@ int	check_components(char *line, t_master *master)
 
 int	is_there_something_wrong(t_master *master, t_map *map)
 {
-	if (master->C == -1 || master->F == -1)
+	if (master->c == -1 || master->f == -1)
 		master->wrongmap = 1;
-	if (!master->SO || !master->EA || !master->WE || !master->NO)
+	if (!master->so || !master->ea || !master->we || !master->no)
 		master->wrongmap = 1;
 	while (map && is_voidline(map->line) == 0)
 		map = map->next;

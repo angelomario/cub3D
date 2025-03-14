@@ -6,13 +6,13 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:00:18 by aquissan          #+#    #+#             */
-/*   Updated: 2025/03/13 18:43:07 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/03/13 19:20:36 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-int check_around(char **map, int x, int y)
+int	check_around(char **map, int x, int y)
 {
 	if (((x - 1) < 0) || ((x + 1) >= ft_countline(map)))
 		return (0);
@@ -35,10 +35,10 @@ int check_around(char **map, int x, int y)
 	return (1);
 }
 
-int around_character(char **tab, t_master *master)
+int	around_character(char **tab, t_master *master)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = 0;
 	y = 0;
@@ -47,7 +47,8 @@ int around_character(char **tab, t_master *master)
 		y = 0;
 		while (tab[x][y] != '\0')
 		{
-			if (tab[x][y] == 'W' || tab[x][y] == 'N' || tab[x][y] == 'E' || tab[x][y] == 'S')
+			if (tab[x][y] == 'W' || tab[x][y] == 'N' || tab[x][y] == 'E'
+				|| tab[x][y] == 'S')
 			{
 				if ((y - 1) < 0 || (y + 1) >= ft_countmatriz(tab))
 					return (master->wrongmap = 1, 1);
@@ -61,10 +62,10 @@ int around_character(char **tab, t_master *master)
 	return (0);
 }
 
-int ft_find_leak(char **tab)
+int	ft_find_leak(char **tab)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = 0;
 	y = 0;
@@ -85,10 +86,10 @@ int ft_find_leak(char **tab)
 	return (0);
 }
 
-int have_valid_wall(char **map)
+int	have_valid_wall(char **map)
 {
-	char **line;
-	int x;
+	char	**line;
+	int		x;
 
 	x = 0;
 	while (map[x] != NULL)
@@ -104,9 +105,9 @@ int have_valid_wall(char **map)
 	return (1);
 }
 
-int ft_orizontalwall(char **line)
+int	ft_orizontalwall(char **line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i] != NULL)

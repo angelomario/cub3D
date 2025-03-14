@@ -6,23 +6,11 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:29:11 by aquissan          #+#    #+#             */
-/*   Updated: 2025/03/13 17:57:59 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/03/14 11:19:52 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
-
-void	free_textures(t_master *master)
-{
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		mlx_destroy_image(master->render.mlx, master->img.textures[i]);
-		i++;
-	}
-}
 
 int	key_hook(int keycode, t_master *master)
 {
@@ -32,8 +20,7 @@ int	key_hook(int keycode, t_master *master)
 		mlx_destroy_image(master->render.mlx, master->img.img);
 		mlx_destroy_window(master->render.mlx, master->render.win);
 		mlx_destroy_display(master->render.mlx);
-		free(master->render.mlx);
-		return (ft_free_master(master), exit(0), 0);
+		return (free(master->render.mlx), ft_free_master(master), exit(0), 0);
 	}
 	if (keycode == RRIGHT)
 		master->keyboard.r_right = true;
@@ -104,54 +91,20 @@ t_minilib	set_cardial(t_master *master)
 	return (render);
 }
 
-void	msg_error_image_not_found(int i, void *mlx, t_data *img)
-{
-	printerror("Incorrect texture");
-	while ((i - 1 >= 0) && img->textures[i - 1])
-	{
-		mlx_destroy_image(mlx, img->textures[i - 1]);
-		i--;
-	}
-}
-
-int	load_textures(void *mlx, t_data *img, t_master *master)
-{
-	int	i;
-
-	i = 0;
-	img->tex_paths[0] = master->NO;
-	img->tex_paths[1] = master->SO;
-	img->tex_paths[2] = master->WE;
-	img->tex_paths[3] = master->EA;
-	while (i < 4)
-	{
-		img->textures[i] = mlx_xpm_file_to_image(mlx, img->tex_paths[i],
-				&img->tex_width[i], &img->tex_height[i]);
-		if (!img->textures[i])
-			return (msg_error_image_not_found(i, mlx, img), 1);
-		img->tex_addr[i] = mlx_get_data_addr(img->textures[i],
-				&img->tex_bits_per_pixel[i], &img->tex_line_length[i],
-				&img->tex_endian[i]);
-		i++;
-	}
-	return (0);
-}
-
 int	ft_game(t_master *master)
 {
 	t_minilib	render;
 	t_data		img;
 
-	show_map(master->campus);
 	render = set_cardial(master);
 	render.pos = get_player_pos(master->campus);
 	render.pos = (t_vector){render.pos.x + 0.5, render.pos.y + 0.5};
 	render.mlx = mlx_init();
+	if (!render.mlx)
+		return (ft_free_master(master), printerror("Display property no set"));
 	if (load_textures(render.mlx, &img, master))
-	{
-		mlx_destroy_display(render.mlx);
-		return (free(render.mlx), ft_free_master(master), exit(1), 1);
-	}
+		return (mlx_destroy_display(render.mlx), free(render.mlx),
+			ft_free_master(master), exit(1), 1);
 	render.win = mlx_new_window(render.mlx, SCREEN_WIDTH, SCREEN_HEIGHT,
 			"Odyssey");
 	img.img = mlx_new_image(render.mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -167,26 +120,6 @@ int	ft_game(t_master *master)
 	return (mlx_loop(render.mlx), 0);
 }
 
-int	printerror(char *str)
-{
-	char	*tmp1;
-	char	*tmp2;
-
-	if (str)
-	{
-		tmp1 = ft_strjoin(RED, "|-------| ");
-		tmp2 = ft_strjoin(tmp1, str);
-		free(tmp1);
-		tmp1 = ft_strjoin(tmp2, " |-------|\n");
-		free(tmp2);
-		tmp2 = ft_strjoin(tmp1, RESET);
-		ft_putstr_fd(tmp2, 2);
-		free(tmp1);
-		free(tmp2);
-	}
-	return (0);
-}
-
 int	main(int ac, char *av[])
 {
 	t_master	*master;
@@ -195,10 +128,14 @@ int	main(int ac, char *av[])
 	if (ac == 2 && av)
 	{
 		map = ft_read_file(av[1]);
+		if (!map)
+			return (1);
 		master = get_master(map);
 		ft_free_stack(map);
 		if (master->wrongmap == 0)
+		{
 			ft_game(master);
+		}
 		else
 		{
 			ft_free_master(master);

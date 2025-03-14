@@ -6,16 +6,16 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:32:11 by aquissan          #+#    #+#             */
-/*   Updated: 2025/02/13 17:32:19 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/03/14 12:07:40 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int ft_wordcount(char const *s, char c)
+static int	ft_wordcount(char const *s, char c)
 {
-	int i;
-	int count;
+	int	i;
+	int	count;
 
 	i = 0;
 	count = 0;
@@ -34,10 +34,10 @@ static int ft_wordcount(char const *s, char c)
 	return (count);
 }
 
-static int ft_wordlen(char const *s, char c, int start)
+static int	ft_wordlen(char const *s, char c, int start)
 {
-	int i;
-	int count;
+	int	i;
+	int	count;
 
 	i = start;
 	count = 0;
@@ -49,12 +49,12 @@ static int ft_wordlen(char const *s, char c, int start)
 	return (count);
 }
 
-static char *ft_getword(char const *s, char c, int start)
+static char	*ft_getword(char const *s, char c, int start)
 {
-	char *word;
-	int len;
-	int i;
-	int j;
+	char	*word;
+	int		len;
+	int		i;
+	int		j;
 
 	i = start;
 	j = 0;
@@ -68,11 +68,11 @@ static char *ft_getword(char const *s, char c, int start)
 	return (word);
 }
 
-char **ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
-	int i;
-	int j;
-	char **arr;
+	int		i;
+	int		j;
+	char	**arr;
 
 	i = 0;
 	j = -1;

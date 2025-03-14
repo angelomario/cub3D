@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:42:09 by aquissan          #+#    #+#             */
-/*   Updated: 2025/03/13 16:14:11 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/03/14 12:04:17 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,15 @@ int	ft_countlinecampus(t_map *list)
 
 int	initializedefault(t_master *master)
 {
-	master->C = -1;
-	master->F = -1;
+	master->c = -1;
+	master->f = -1;
 	master->wrongmap = 0;
-	master->SO = NULL;
-	master->WE = NULL;
-	master->EA = NULL;
-	master->NO = NULL;
+	master->so = NULL;
+	master->we = NULL;
+	master->ea = NULL;
+	master->no = NULL;
 	master->campus = NULL;
-	master->keyboard = (t_keyboard){false, false, false, false, false, false, false, false};
+	master->keyboard = (t_keyboard){false, false, false, false, false, false,
+		false, false};
 	return (0);
 }
