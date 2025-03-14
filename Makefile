@@ -6,7 +6,7 @@
 #    By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/16 17:25:17 by aquissan          #+#    #+#              #
-#    Updated: 2025/03/14 11:53:02 by aquissan         ###   ########.fr        #
+#    Updated: 2025/03/14 12:11:50 by aquissan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ FLAGS= -Wall -Wextra -Werror -g
 COMPILE= cc
 
 # DIRS
+INC_D = includes
 LIBFTPATH = libft
 MLXPATH = minilibx-linux
 SRC_D=sources
@@ -79,6 +80,9 @@ push: fclean
 	git status
 	git commit -m "done"
 	git push
+
+norm:
+	norminette $(LIBFTPATH) $(SRC_D) $(INC_D)
 
 .PHONY: all re clean fclean
 
