@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:00:21 by aquissan          #+#    #+#             */
-/*   Updated: 2025/03/14 12:04:40 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/03/17 15:31:58 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,21 @@ t_vector	rotate_vector(t_vector v, double angle)
 
 void	msg_error_image_not_found(int i, void *mlx, t_data *img)
 {
-	printerror("Incorrect texture");
+	char	*tmp;
+
+	if (i >= 0 && i < 4)
+	{
+		if (i == 0)
+			tmp = ft_strjoin("Incorrect texture ", "NO, it must be xpm type");
+		if (i == 1)
+			tmp = ft_strjoin("Incorrect texture ", "SO, it must be xpm type");
+		if (i == 2)
+			tmp = ft_strjoin("Incorrect texture ", "WE, it must be xpm type");
+		if (i == 3)
+			tmp = ft_strjoin("Incorrect texture ", "EA, it must be xpm type");
+		printerror(tmp);
+		free(tmp);
+	}
 	while ((i - 1 >= 0) && img->textures[i - 1])
 	{
 		mlx_destroy_image(mlx, img->textures[i - 1]);
@@ -50,6 +64,7 @@ int	printerror(char *str)
 
 	if (str)
 	{
+		ft_putstr_fd("\033[31mError\n\033[0m", 2);
 		tmp1 = ft_strjoin(RED, "|-------| ");
 		tmp2 = ft_strjoin(tmp1, str);
 		free(tmp1);

@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:51:02 by aquissan          #+#    #+#             */
-/*   Updated: 2025/03/14 11:44:39 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/03/17 13:32:55 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,16 @@ void	dda(t_master *master, int *hitSide, t_intvector *step,
 		if (master->campus[(*wallMapPos).x][(*wallMapPos).y] == '1')
 			hit = true;
 	}
+}
+
+int	key_exit(t_master *master)
+{
+	free_textures(master);
+	mlx_destroy_image(master->render.mlx, master->img.img);
+	mlx_destroy_window(master->render.mlx, master->render.win);
+	mlx_destroy_display(master->render.mlx);
+	free(master->render.mlx);
+	ft_free_master(master);
+	exit(0);
+	return (0);
 }

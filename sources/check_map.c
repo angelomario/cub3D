@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:42:09 by aquissan          #+#    #+#             */
-/*   Updated: 2025/03/14 10:46:27 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/03/17 14:43:36 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ t_map	*ft_read_file(char *filepath)
 	int		fd;
 
 	if (check_filename(filepath) == -1)
-		return (printerror("The map cannot be opened or does not exist"), NULL);
+		return (NULL);
 	fd = open(filepath, READ);
 	if (fd == -1)
-		return (printerror("The map cannot be opened or does not exist"), NULL);
+		return (printerror(strerror(errno)), NULL);
 	map = (t_map *)malloc(sizeof(t_map) * 1);
 	map->line = get_next_line(fd);
 	map->next = NULL;
@@ -65,7 +65,6 @@ int	get_campus(t_map *map, t_master **master)
 	}
 	else
 		(*master)->campus = NULL;
-	(*master)->wrongmap = 1;
 	return (1);
 }
 
@@ -141,6 +140,8 @@ t_master	*get_master(t_map *map)
 		}
 		tmp = tmp->next;
 	}
+	if (master->wrongmap)
+		return (master);
 	is_there_something_wrong(master, tmp);
 	if (master->campus)
 		check_campus(master);

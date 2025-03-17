@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:42:09 by aquissan          #+#    #+#             */
-/*   Updated: 2025/03/14 12:03:53 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/03/17 14:51:28 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,12 @@ int	check_filename(char *filename)
 
 	i = ft_strlen(filename);
 	if (i <= 4)
+	{
+		tmp = ft_strjoin(filename, " is not a file with a valid map name");
+		printerror(tmp);
+		free(tmp);
 		return (-1);
+	}
 	substr = ft_substr(filename, (i - 4), i);
 	if (ft_strcmp(substr, ".cub") != 0)
 	{
@@ -35,9 +40,15 @@ int	check_filename(char *filename)
 int	check_elements(t_master *master)
 {
 	if (!master->so || !master->no || !master->we || !master->ea)
-		printerror("Expected correct values ​​for SO, NO, WE and EA fields");
+	{
+		printerror("Expected SO, NO, WE and EA fields");
+		master->wrongmap = 1;
+	}
 	else if (master->c == -1 || master->f == -1)
-		printerror("A valid color was expected for ceil and floor");
+	{
+		printerror("A valid color was expected for ceil(C) and floor(F)");
+		master->wrongmap = 1;
+	}
 	return (0);
 }
 
@@ -76,14 +87,16 @@ int	is_there_something_wrong(t_master *master, t_map *map)
 		master->wrongmap = 1;
 	if (!master->so || !master->ea || !master->we || !master->no)
 		master->wrongmap = 1;
+	if (!master->campus)
+		return (master->wrongmap = 1, printerror("Expected a valid map"), 0);
 	while (map && is_voidline(map->line) == 0)
 		map = map->next;
-	if (!map)
-		return (master->wrongmap = 1, printerror("Expected map"), 0);
-	if (master->campus == NULL)
+	while (map && is_voidline(map->line))
+		map = map->next;
+	if (map)
 	{
 		master->wrongmap = 1;
-		printerror("Invalid map");
+		return (printerror("The map must be the last component"));
 	}
 	return (0);
 }

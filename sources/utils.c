@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:42:09 by aquissan          #+#    #+#             */
-/*   Updated: 2025/03/14 12:04:17 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/03/15 06:52:35 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	is_voidline(char *line)
 			i++;
 		if (line[i] == '\n' || line[i] == '\0')
 			return (1);
+		else
+			return (0);
 	}
 	return (0);
 }

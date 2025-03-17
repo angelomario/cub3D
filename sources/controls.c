@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:43:01 by aquissan          #+#    #+#             */
-/*   Updated: 2025/03/14 10:49:47 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/03/17 12:54:44 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,13 @@ int	controls(void *vars)
 	renderization(&master->render, master, &master->img);
 	mlx_put_image_to_window(master->render.mlx, master->render.win,
 		master->img.img, 0, 0);
+	return (0);
+}
+
+int	wait_hooks(t_master *master)
+{
+	mlx_hook(master->render.win, 2, 1L << 0, key_hook, master);
+	mlx_hook(master->render.win, 3, 1L << 1, key_release, master);
+	mlx_hook(master->render.win, 17, 1L << 1, key_exit, master);
 	return (0);
 }

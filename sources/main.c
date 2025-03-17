@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:29:11 by aquissan          #+#    #+#             */
-/*   Updated: 2025/03/14 11:19:52 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/03/17 13:32:35 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,7 @@ int	ft_game(t_master *master)
 			&img.endian);
 	master->render = render;
 	master->img = img;
-	mlx_hook(master->render.win, 2, 1L << 0, key_hook, master);
-	mlx_hook(master->render.win, 3, 1L << 1, key_release, master);
+	wait_hooks(master);
 	mlx_loop_hook(master->render.mlx, controls, master);
 	renderization(&master->render, master, &img);
 	mlx_put_image_to_window(master->render.mlx, render.win, img.img, 0, 0);
@@ -139,9 +138,10 @@ int	main(int ac, char *av[])
 		else
 		{
 			ft_free_master(master);
+			return (1);
 		}
 	}
 	else
-		printerror("Usage: ./<executable> <map_way>");
+		return (printerror("Usage: ./<executable> <map_way>"), 1);
 	return (0);
 }
