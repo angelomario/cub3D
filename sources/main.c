@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:29:11 by aquissan          #+#    #+#             */
-/*   Updated: 2025/03/17 13:32:35 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:37:21 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,13 @@ int	ft_game(t_master *master)
 	render.pos = (t_vector){render.pos.x + 0.5, render.pos.y + 0.5};
 	render.mlx = mlx_init();
 	if (!render.mlx)
-		return (ft_free_master(master), printerror("Display property no set"));
+		return (ft_free_master(master), printerror("Display property no set"),
+			1);
 	if (load_textures(render.mlx, &img, master))
 		return (mlx_destroy_display(render.mlx), free(render.mlx),
 			ft_free_master(master), exit(1), 1);
 	render.win = mlx_new_window(render.mlx, SCREEN_WIDTH, SCREEN_HEIGHT,
-			"Odyssey");
+			"ODYSSEY");
 	img.img = mlx_new_image(render.mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 			&img.endian);
@@ -126,20 +127,21 @@ int	main(int ac, char *av[])
 
 	if (ac == 2 && av)
 	{
+		if (SCREEN_WIDTH < 150)
+			return (printerror("Window width too small"), 1);
+		if (SCREEN_HEIGHT < 150)
+			return (printerror("Window height too small"), 1);
+		if (SPEED <= 0)
+			return (printerror("The player speed must be bigger than 0"), 1);
 		map = ft_read_file(av[1]);
 		if (!map)
 			return (1);
 		master = get_master(map);
 		ft_free_stack(map);
 		if (master->wrongmap == 0)
-		{
-			ft_game(master);
-		}
+			return (ft_game(master));
 		else
-		{
-			ft_free_master(master);
-			return (1);
-		}
+			return (ft_free_master(master), 1);
 	}
 	else
 		return (printerror("Usage: ./<executable> <map_way>"), 1);

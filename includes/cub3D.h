@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 11:55:53 by aquissan          #+#    #+#             */
-/*   Updated: 2025/03/17 15:25:48 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/03/18 06:51:49 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,16 @@
 # include <stdbool.h>
 # include <string.h>
 
-# define SCREEN_WIDTH 800
-# define SCREEN_HEIGHT 600
+# if !defined SCREEN_WIDTH
+#  define SCREEN_WIDTH 800
+# endif
+# if !defined SCREEN_HEIGHT
+#  define SCREEN_HEIGHT 600
+# endif
+# if !defined SPEED
+#  define SPEED 0.010
+# endif
 # define PI 3.14
-# define SPEED 0.010
 # define ESC 65307
 # define RRIGHT 65363
 # define RUP 65362

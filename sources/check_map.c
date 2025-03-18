@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:42:09 by aquissan          #+#    #+#             */
-/*   Updated: 2025/03/17 14:43:36 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:14:50 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ t_master	*get_master(t_map *map)
 	if (master->wrongmap)
 		return (master);
 	is_there_something_wrong(master, tmp);
-	if (master->campus)
+	if (master->campus && master->wrongmap == 0)
 		check_campus(master);
 	return (master);
 }

@@ -6,11 +6,38 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:51:02 by aquissan          #+#    #+#             */
-/*   Updated: 2025/03/17 13:32:55 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:10:23 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
+
+int	ft_countchar(char *str, char ch)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = 0;
+	if (str)
+	{
+		while (str[i])
+		{
+			if (str[i] == ch)
+				len++;
+			i++;
+		}
+	}
+	return (len);
+}
+
+int	correct_color(char *str)
+{
+	if (ft_countchar(str, ',') > 2 || ft_strchr(str, '\"') || ft_strchr(str,
+			'\''))
+		return (-1);
+	return (0);
+}
 
 int	getcolor(char *str, t_master *master)
 {
@@ -19,6 +46,8 @@ int	getcolor(char *str, t_master *master)
 	int		b;
 	char	**rgb;
 
+	if (correct_color(str) != 0)
+		return (-1);
 	if (str)
 	{
 		rgb = ft_split(str, ',');
@@ -30,6 +59,8 @@ int	getcolor(char *str, t_master *master)
 		r = ft_atoi(rgb[0]);
 		g = ft_atoi(rgb[1]);
 		b = ft_atoi(rgb[2]);
+		if ((r < 0 || r > 255) || (g < 0 || g > 255) || (b < 0 || b > 255))
+			return (ft_freematriz(rgb), -1);
 		if (r < 0 || g < 0 || b < 0)
 			master->wrongmap = 1;
 		return (ft_freematriz(rgb), (r << 16 | g << 8 | b));

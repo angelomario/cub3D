@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:42:09 by aquissan          #+#    #+#             */
-/*   Updated: 2025/03/17 14:51:28 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/03/18 06:47:23 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	check_components(char *line, t_master *master)
 	int		flag;
 	char	**sep;
 
-	ft_replacechar(line, '\t', ' ');
 	ft_replacechar(line, '\n', ' ');
 	sep = ft_split(line, ' ');
 	flag = 0;

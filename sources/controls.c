@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:43:01 by aquissan          #+#    #+#             */
-/*   Updated: 2025/03/17 12:54:44 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/03/18 08:28:03 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,49 +34,51 @@ void	move_x(t_master *master)
 	rd = &master->render;
 	if (master->keyboard.right)
 	{
-		dir = (t_vector){-rd->dir.x, rd->dir.y};
-		if (master->campus[(int)(rd->pos.x + dir.y
-				* SPEED)][(int)(rd->pos.y)] != '1')
-			rd->pos.x += dir.y * SPEED;
-		if (master->campus[(int)(rd->pos.x)][(int)(rd->pos.y + dir.x
-				* SPEED)] != '1')
-			rd->pos.y += dir.x * SPEED;
+		dir = (t_vector){rd->dir.y, -rd->dir.x};
+		if (master->campus[(int)(rd->pos.x + dir.x * (SPEED
+					+ 0.1))][(int)(rd->pos.y)] != '1')
+			rd->pos.x += dir.x * SPEED;
+		if (master->campus[(int)(rd->pos.x)][(int)(rd->pos.y + dir.y * (SPEED
+					+ 0.1))] != '1')
+			rd->pos.y += dir.y * SPEED;
 	}
 	if (master->keyboard.left)
 	{
-		dir.y = rd->dir.y;
-		dir.x = -rd->dir.x;
-		if (master->campus[(int)(rd->pos.x - dir.y
-				* SPEED)][(int)(rd->pos.y)] != '1')
-			rd->pos.x -= dir.y * SPEED;
-		if (master->campus[(int)(rd->pos.x)][(int)(rd->pos.y - dir.x
-				* SPEED)] != '1')
-			rd->pos.y -= dir.x * SPEED;
+		dir = (t_vector){-rd->dir.y, rd->dir.x};
+		if (master->campus[(int)(rd->pos.x + dir.x * (SPEED
+					+ 0.1))][(int)(rd->pos.y)] != '1')
+			rd->pos.x += dir.x * SPEED;
+		if (master->campus[(int)(rd->pos.x)][(int)(rd->pos.y + dir.y * (SPEED
+					+ 0.1))] != '1')
+			rd->pos.y += dir.y * SPEED;
 	}
 }
 
 void	move_y(t_master *master)
 {
+	t_vector	dir;
 	t_minilib	*rd;
 
 	rd = &master->render;
 	if (master->keyboard.up)
 	{
-		if (master->campus[(int)((rd->pos.x + rd->dir.x
-					* SPEED))][(int)(rd->pos.y)] != '1')
-			rd->pos.x += rd->dir.x * SPEED;
-		if (master->campus[(int)(rd->pos.x)][(int)(rd->pos.y + rd->dir.y
-				* SPEED)] != '1')
-			rd->pos.y += rd->dir.y * SPEED;
+		dir = (t_vector){rd->dir.x, rd->dir.y};
+		if (master->campus[(int)(rd->pos.x + dir.x * (SPEED
+					+ 0.1))][(int)(rd->pos.y)] != '1')
+			rd->pos.x += dir.x * SPEED;
+		if (master->campus[(int)(rd->pos.x)][(int)(rd->pos.y + dir.y * (SPEED
+					+ 0.1))] != '1')
+			rd->pos.y += dir.y * SPEED;
 	}
 	if (master->keyboard.down)
 	{
-		if (master->campus[(int)(rd->pos.x - rd->dir.x
-				* SPEED)][(int)(rd->pos.y)] != '1')
-			rd->pos.x -= rd->dir.x * SPEED;
-		if (master->campus[(int)(rd->pos.x)][(int)(rd->pos.y - rd->dir.y
-				* SPEED)] != '1')
-			rd->pos.y -= rd->dir.y * SPEED;
+		dir = (t_vector){-rd->dir.x, -rd->dir.y};
+		if (master->campus[(int)(rd->pos.x + dir.x * (SPEED
+					+ 0.1))][(int)(rd->pos.y)] != '1')
+			rd->pos.x += dir.x * SPEED;
+		if (master->campus[(int)(rd->pos.x)][(int)(rd->pos.y + dir.y * (SPEED
+					+ 0.1))] != '1')
+			rd->pos.y += dir.y * SPEED;
 	}
 }
 
