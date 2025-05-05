@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmatondo <nmatondo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:42:09 by aquissan          #+#    #+#             */
-/*   Updated: 2025/04/14 10:53:38 by nmatondo         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:41:30 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../includes/cub3D_bonus.h"
 
 int	is_voidline(char *line)
 {
@@ -76,12 +76,21 @@ int	initializedefault(t_master *master)
 	master->we = NULL;
 	master->ea = NULL;
 	master->no = NULL;
+	master->index_door = 0;
 	master->campus = NULL;
 	master->keyboard = (t_keyboard){false, false, false, false, false, false,
-		false, false};
-	master->index_door = 0;
-	master->type_weapon = 0;
-	master->wall_hitside = 0;
-	master->door_hitside = 0;
+		false, false, false, false, false, false};
+	master->view_high = 0;
+	master->dimension = (t_3d){0, 2, 0};
+	master->time_animation = 0;
+	master->limit_time_animation = 10;
+	master->door_time_animation = 0;
+	master->door_limit_time_animation = 0;
+	master->focused_open_door = (t_intvector){-1, -1};
+	master->focused_close_door = (t_intvector){-1, -1};
+	master->wait_to_close_the_door = 0;
+	master->data_root_door = NULL;
+	master->data_door = NULL;
+	master->game_started = false;
 	return (0);
 }
