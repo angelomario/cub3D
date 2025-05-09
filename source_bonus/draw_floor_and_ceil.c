@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 11:05:08 by aquissan          #+#    #+#             */
-/*   Updated: 2025/04/28 11:44:52 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:02:36 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,11 @@ void	draw_skybox(int drawStart, t_intvector *pos, t_data *img,
 	t_ceil_var	ceil;
 
 	y = 0;
+	ceil.angle = (atan2(master->render.dir.x, master->render.dir.y));
+	ceil.angle -= (PI) / 2;
+	ceil.angle += ((double)pos->x / SCREEN_WIDTH) * (PI);
 	while (y < drawStart)
 	{
-		ceil.angle = (atan2(master->render.dir.x, master->render.dir.y));
-		ceil.angle -= (PI) / 2;
-		ceil.angle += ((double)pos->x / SCREEN_WIDTH) * (PI);
 		if (ceil.angle < 0)
 			ceil.angle += 2 * PI;
 		if (ceil.angle >= 2 * PI)

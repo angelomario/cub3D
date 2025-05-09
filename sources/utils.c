@@ -6,7 +6,7 @@
 /*   By: nmatondo <nmatondo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:42:09 by aquissan          #+#    #+#             */
-/*   Updated: 2025/04/14 10:53:38 by nmatondo         ###   ########.fr       */
+/*   Updated: 2025/05/07 10:24:29 by nmatondo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,5 @@ int	initializedefault(t_master *master)
 	master->campus = NULL;
 	master->keyboard = (t_keyboard){false, false, false, false, false, false,
 		false, false};
-	master->index_door = 0;
-	master->type_weapon = 0;
-	master->wall_hitside = 0;
-	master->door_hitside = 0;
 	return (0);
 }

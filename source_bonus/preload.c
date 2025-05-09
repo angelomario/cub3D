@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   preload.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmatondo <nmatondo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 12:03:40 by aquissan          #+#    #+#             */
-/*   Updated: 2025/05/05 13:28:20 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/05/08 15:32:16 by nmatondo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,6 @@ int	preload(t_master *master)
 		(SCREEN_HEIGHT / 2) - (master->preload.logo[0].height * 1.8));
 	return (mlx_put_image_to_window(master->render.mlx, master->render.win,
 			master->preload.img, 0, 0), 0);
+	(void)master;
+	return (0);
 }

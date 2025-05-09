@@ -6,7 +6,7 @@
 /*   By: nmatondo <nmatondo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:32:11 by aquissan          #+#    #+#             */
-/*   Updated: 2025/04/21 11:20:22 by nmatondo         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:12:57 by nmatondo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,24 +87,19 @@ static void	draw_door_texture_in_draw_door(
 
 void	draw_door(t_intvector *pos, t_data *img, t_master *master)
 {
-	int			iter;
-	t_list		*last;
 	t_draw_door	draw;
+	t_door_data	*data;
 
 	if (master->render.is_door)
 	{
-		iter = 0;
-		last = ft_lstlast(master->data_root_door);
 		master->data_door = master->data_root_door;
 		while (master->data_door != NULL)
 		{
-			master->type_door = 0;
-			master->index_door = 0;
-			if (last == master->data_door)
-				master->index_door = get_image_index_by_character_type(master);
+			data = (t_door_data *)master->data_door->content;
+			master->index_door = get_image_index_by_character_type(master,
+					master->campus[data->door_map_pos.x][data->door_map_pos.y]);
 			draw_door_texture_in_draw_door(pos, img, master, &draw);
 			master->data_door = master->data_door->next;
-			iter++;
 		}
 	}
 	if (master->data_root_door != NULL)

@@ -6,7 +6,7 @@
 /*   By: nmatondo <nmatondo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 11:50:40 by nmatondo          #+#    #+#             */
-/*   Updated: 2025/04/16 13:33:19 by nmatondo         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:57:03 by nmatondo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*door_three_character_list(void)
 	return (character);
 }
 
-int	get_image_index_by_character_type(t_master *master)
+int	get_image_index_by_character_type(t_master *master, char chr)
 {
 	int		index;
 	char	*list;
@@ -66,7 +66,7 @@ int	get_image_index_by_character_type(t_master *master)
 		list = door_three_character_list();
 	while (list[index])
 	{
-		if (list[index] == master->render.door_object_touched)
+		if (list[index] == chr)
 			return (index);
 		index++;
 	}

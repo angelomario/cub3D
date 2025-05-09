@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controls_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmatondo <nmatondo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:43:01 by aquissan          #+#    #+#             */
-/*   Updated: 2025/05/05 10:31:07 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/05/08 15:51:33 by nmatondo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ int	controls(void *vars)
 	t_master	*master;
 
 	master = (t_master *)vars;
-	master->render.door_object_touched = '\0';
 	master->rotate_angle++;
 	if (master->game_started)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_image_path_util_bonus.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmatondo <nmatondo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 17:10:10 by nmatondo          #+#    #+#             */
-/*   Updated: 2025/05/05 16:34:21 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/05/08 15:42:26 by nmatondo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

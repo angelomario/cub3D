@@ -6,7 +6,7 @@
 /*   By: aquissan <aquissan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:49:02 by aquissan          #+#    #+#             */
-/*   Updated: 2025/04/30 13:47:07 by aquissan         ###   ########.fr       */
+/*   Updated: 2025/05/09 15:08:03 by aquissan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_sound(t_sound *sound)
 	return (0);
 }
 
-int	play_sound(HSTREAM sound, int vol)
+int	play_sound(HSTREAM sound, int vol, BOOL restart)
 {
 	float	volume;
 
@@ -46,8 +46,7 @@ int	play_sound(HSTREAM sound, int vol)
 	if (sound)
 	{
 		BASS_ChannelSetAttribute(sound, BASS_ATTRIB_VOL, volume);
-		if (BASS_ChannelIsActive(sound) != BASS_ACTIVE_PLAYING)
-			BASS_ChannelPlay(sound, TRUE);
+		BASS_ChannelPlay(sound, restart);
 	}
 	return (0);
 }
@@ -62,7 +61,7 @@ int	sound_init(t_sound *sounds, BOOL *bass)
 			BASS_SAMPLE_LOOP);
 	sounds->run = BASS_StreamCreateFile(FALSE, "./sound/run/run.mp3", 0, 0, 0);
 	sounds->revolver = BASS_StreamCreateFile(FALSE,
-			"./sound/weapon/revovler.mp3", 0, 0, 0);
+			"./sound/weapon/revolver.mp3", 0, 0, 0);
 	sounds->shotgun = BASS_StreamCreateFile(FALSE,
 			"./sound/weapon/shotgun-frst.mp3", 0, 0, 0);
 	sounds->pistol = BASS_StreamCreateFile(FALSE, "./sound/weapon/pistol.mp3",
@@ -98,14 +97,23 @@ int	clear_sounds(t_sound sounds, BOOL bass)
 {
 	if (bass)
 	{
+		BASS_ChannelStop(sounds.background);
 		BASS_StreamFree(sounds.background);
+		BASS_ChannelStop(sounds.revolver);
 		BASS_StreamFree(sounds.revolver);
+		BASS_ChannelStop(sounds.pistol);
 		BASS_StreamFree(sounds.pistol);
+		BASS_ChannelStop(sounds.revolver_3);
 		BASS_StreamFree(sounds.revolver_3);
+		BASS_ChannelStop(sounds.shotgun);
 		BASS_StreamFree(sounds.shotgun);
+		BASS_ChannelStop(sounds.shotgun_frst);
 		BASS_StreamFree(sounds.shotgun_frst);
+		BASS_ChannelStop(sounds.run);
 		BASS_StreamFree(sounds.run);
+		BASS_ChannelStop(sounds.door_close);
 		BASS_StreamFree(sounds.door_close);
+		BASS_ChannelStop(sounds.door_open);
 		BASS_StreamFree(sounds.door_open);
 		BASS_Stop();
 		BASS_Free();
